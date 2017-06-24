@@ -34,7 +34,6 @@ export function search(state = initialState, action) {
     case Actions.GET_PAGE_FAILURE:
       return state
     case Actions.GET_SEARCH_SUCCESS:
-      console.log('success', action.data)
       return {
         ...state,
         isFetching: false,

@@ -4,9 +4,6 @@ import React from 'react'
 const Modal = ({ show, content, closeModal, isFetching }) => {
   let style = show ? { display: 'block' } : {}
 
-  // what if no content, i.e. content undefined?
-  console.log('content', content, 'show', show)
-
   if (content) {
     var title = content.title
     var img = content.image_url

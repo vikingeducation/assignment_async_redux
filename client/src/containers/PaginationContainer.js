@@ -14,7 +14,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     changePage: (e) => {
       e.preventDefault()
-      console.log('changePage', e.target)
       const term = e.target.getAttribute('data-search-term')
       const type = e.target.getAttribute('data-search-type')
       const page = parseInt(e.target.getAttribute('data-pagination-action'), 10)

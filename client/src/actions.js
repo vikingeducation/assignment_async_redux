@@ -114,7 +114,6 @@ export function getReview(id) {
         return response.json()
       })
       .then((json) => {
-        console.log('review data', json.GoodreadsResponse.book)
         dispatch(getReviewSuccess(json.GoodreadsResponse.book))
       })
       .catch((error) => {
