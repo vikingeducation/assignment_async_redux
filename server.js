@@ -32,7 +32,9 @@ const checkStatus = response => {
 
 const parseXML = response => {
   return new Promise((resolve, reject) => {
-    parseXMLtoJSON(response, (err, result) => {
+    parseXMLtoJSON(response, {
+      explicitArray: false
+    }, (err, result) => {
       resolve(result);
       reject(err);
     })
@@ -41,13 +43,13 @@ const parseXML = response => {
 
 app.get("/api/search", (req, res, next) => {
   console.log("Requesting search data from GoodReads...");
-  const { q } = req.query;
+  const q = req.query.q || "B";
   fetch(`${baseUrl}/search/index.xml?key=${GOODREADS_API_KEY}&q=${q}`)
     .then(checkStatus)
     .then(response => response.text())
     .then(parseXML)
     .then(json => {
-      res.json(json);
+      res.json(json.GoodreadsResponse.search.results.work);
     })
     .catch(error => {
       next(error);
