@@ -28,6 +28,13 @@ body {
   margin-top: 1em;
 }
 
+span.img-loader {
+  display: inline-block;
+  background-image: url("/ajax-loader.gif");
+  height: 1em;
+  width: 1em;
+}
+
 /*
  From https://stackoverflow.com/a/19695851/7565120
 */

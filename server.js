@@ -49,7 +49,7 @@ app.get("/api/search", (req, res, next) => {
     .then(response => response.text())
     .then(parseXML)
     .then(json => {
-      res.json(json.GoodreadsResponse.search.results.work);
+      res.json(json.GoodreadsResponse.search.results.work || []);
     })
     .catch(error => {
       next(error);

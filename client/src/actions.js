@@ -65,3 +65,24 @@ export function getInitialAllBooks() {
       });
   };
 }
+
+export function getSearchedBooks(query) {
+  return dispatch => {
+    dispatch(getAllBooksRequest());
+
+    fetch(`api/search?${query}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`${response.status}: ${response.statusText}`);
+        }
+
+        return response.json();
+      })
+      .then(json => {
+        dispatch(getAllBooksSuccess(json));
+      })
+      .catch(error => {
+        dispatch(getAllBooksFailure(error));
+      });
+  }
+}
