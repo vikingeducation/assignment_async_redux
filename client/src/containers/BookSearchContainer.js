@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import serialize from "form-serialize";
 import BookSearch from "../components/BookSearch";
-import { getInitialAllBooks, getSearchedBooks } from "../actions";
+import {
+  getInitialAllBooks,
+  getSearchedBooks,
+  getSelectedBook,
+  setModalToClosed
+} from "../actions";
 
 class BookSearchContainer extends Component {
   componentDidMount() {
@@ -17,7 +22,10 @@ class BookSearchContainer extends Component {
 const mapStateToProps = state => {
   return {
     books: state.allBooks.books,
-    isFetching: state.allBooks.isFetching
+    isFetchingAll: state.allBooks.isFetching,
+    isModalOpen: state.modal.isModalOpen,
+    selectedBook: state.selectedBook.book,
+    isFetchingSelected: state.selectedBook.isFetching
   };
 };
 
@@ -27,14 +35,28 @@ const mapDispatchToProps = dispatch => {
       dispatch(getInitialAllBooks());
     },
     onSearchSubmit: e => {
-      e.preventDefault();
-      const form = e.target;
-      const data = serialize(form);
-      console.log(data);
-      form.reset();
+      const data = parseForm(e);
       dispatch(getSearchedBooks(data));
+    },
+    onSelectBookSubmit: e => {
+      const data = parseForm(e);
+      dispatch(getSelectedBook(data));
+    },
+    onCloseModal: e => {
+      e.preventDefault();
+      dispatch(setModalToClosed());
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookSearchContainer);
+const parseForm = e => {
+  e.preventDefault();
+  const form = e.target;
+  const data = serialize(form);
+  form.reset();
+  return data;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  BookSearchContainer
+);

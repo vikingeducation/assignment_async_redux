@@ -11,6 +11,9 @@ const initialState = {
     book: {},
     isFetching: false,
     error: null
+  },
+  modal: {
+    isModalOpen: false
   }
 };
 
@@ -64,7 +67,24 @@ export function selectedBook(state = initialState.selectedBook, action) {
   }
 }
 
+export function modal(state = initialState.modal, action) {
+  switch (action.type) {
+    case Actions.SET_MODAL_TO_OPEN:
+      return {
+        isModalOpen: true
+      };
+    case Actions.SET_MODAL_TO_CLOSED:
+      return {
+        isModalOpen: false
+      };
+    default:
+      return state;
+    // eslint-disable-next-line
+  }
+}
+
 export const bookSearchApp = combineReducers({
+  modal,
   allBooks,
   selectedBook
 });

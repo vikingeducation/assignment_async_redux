@@ -2,8 +2,8 @@ require("es6-promise").polyfill;
 require("isomorphic-fetch");
 require("dotenv").config();
 const app = require("express")();
-const fs = require('fs')
-const parseXMLtoJSON = require('xml2js').parseString;
+const fs = require("fs");
+const parseXMLtoJSON = require("xml2js").parseString;
 
 const GOODREADS_API_KEY = process.env.GOODREADS_API_KEY;
 const baseUrl = "https://www.goodreads.com/";
@@ -32,12 +32,16 @@ const checkStatus = response => {
 
 const parseXML = response => {
   return new Promise((resolve, reject) => {
-    parseXMLtoJSON(response, {
-      explicitArray: false
-    }, (err, result) => {
-      resolve(result);
-      reject(err);
-    })
+    parseXMLtoJSON(
+      response,
+      {
+        explicitArray: false
+      },
+      (err, result) => {
+        resolve(result);
+        reject(err);
+      }
+    );
   });
 };
 
@@ -57,14 +61,14 @@ app.get("/api/search", (req, res, next) => {
 });
 
 app.get("/api/book", (req, res, next) => {
-  console.log("Requesting search data from GoodReads...");
+  console.log("Requesting selected book data from GoodReads...");
   const { id } = req.query;
   fetch(`${baseUrl}/book/show/${id}.xml?key=${GOODREADS_API_KEY}`)
     .then(checkStatus)
     .then(response => response.text())
     .then(parseXML)
     .then(json => {
-      res.json(json);
+      res.json(json.GoodreadsResponse.book || {});
     })
     .catch(error => {
       next(error);
