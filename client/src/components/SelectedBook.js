@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const parseAuthors = authors => {
   if (!Array.isArray(authors)) {
@@ -39,6 +40,10 @@ const SelectedBook = ({ book }) => {
       <h4>Average Rating: {book.average_rating}</h4>
     </div>
   );
+};
+
+SelectedBook.propTypes = {
+  book: PropTypes.object.isRequired
 };
 
 export default SelectedBook;

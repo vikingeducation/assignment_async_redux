@@ -73,7 +73,13 @@ const BookSearch = props => {
 
 BookSearch.propTypes = {
   onSearchSubmit: PropTypes.func.isRequired,
-  onSelectBookSubmit: PropTypes.func.isRequired
+  onSelectBookSubmit: PropTypes.func.isRequired,
+  books: PropTypes.array.isRequired,
+  isFetchingAll: PropTypes.bool.isRequired,
+  isFetchingSelected: PropTypes.bool.isRequired,
+  selectedBook: PropTypes.object.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
+  onCloseModal: PropTypes.func.isRequired
 };
 
 export default BookSearch;
