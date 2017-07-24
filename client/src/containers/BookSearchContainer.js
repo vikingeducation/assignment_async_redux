@@ -13,7 +13,9 @@ class BookSearchContainer extends Component {
   componentDidMount() {
     this.props.getInitialAllBooks();
   }
-
+  componentWillUnmount() {
+    console.log('WY');
+  }
   render() {
     return <BookSearch {...this.props} />;
   }

@@ -17,7 +17,7 @@ const initialState = {
   }
 };
 
-export function allBooks(state = initialState.allBooks, action) {
+const allBooks = (state = initialState.allBooks, action) => {
   switch (action.type) {
     case Actions.GET_ALL_BOOKS_SUCCESS:
       return {
@@ -42,7 +42,7 @@ export function allBooks(state = initialState.allBooks, action) {
   }
 }
 
-export function selectedBook(state = initialState.selectedBook, action) {
+const selectedBook = (state = initialState.selectedBook, action) => {
   switch (action.type) {
     case Actions.GET_SELECTED_BOOK_SUCCESS:
       return {
@@ -67,7 +67,7 @@ export function selectedBook(state = initialState.selectedBook, action) {
   }
 }
 
-export function modal(state = initialState.modal, action) {
+const modal = (state = initialState.modal, action) => {
   switch (action.type) {
     case Actions.SET_MODAL_TO_OPEN:
       return {
