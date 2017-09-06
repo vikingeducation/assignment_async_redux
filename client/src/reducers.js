@@ -25,6 +25,8 @@ const status = (state = { isFetching: false, error: null }, action) => {
       return { isFetching: false, error: action.error };
     case SET_SUCCESS:
       return { isFetching: false, error: null };
+    default:
+      return state;
   }
 };
 
@@ -37,4 +39,4 @@ const modal = (state = { visible: false, id: null }, action) => {
   }
 };
 
-export const booksApp = combineReducers({ books, modalVisible });
+export const booksApp = combineReducers({ books, modal, status });

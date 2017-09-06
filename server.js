@@ -33,9 +33,9 @@ const convert = require("xml-to-json-promise").xmlDataToJSON;
 app.get("/api/books", async (req, res, next) => {
   try {
     const query = req.query.query || "";
-    const search = req.query.all || "all";
+    const field = req.query.field || "all";
     console.log("Requesting Book data from GoodReads...");
-    const url = `${baseUrl}/search/index.xml?key=${GOODREADS_API_KEY}&q=${query}&search[field]=${search}`;
+    const url = `${baseUrl}/search/index.xml?key=${GOODREADS_API_KEY}&q=${query}&search[field]=${field}`;
     const response = checkStatus(await fetch(url));
     const text = await response.text();
     res.json(await convert(text));
