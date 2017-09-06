@@ -1,11 +1,13 @@
 {
   "name": "assignment_async_redux",
   "version": "1.0.0",
-  "description": "Reading is FUNdamental... for learning async actions in Redux",
+  "description":
+    "Reading is FUNdamental... for learning async actions in Redux",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently -c red,green \"cd client && npm start\" \"nodemon server.js\" "
+    "start":
+      "concurrently -c red,blue \"cd client && npm start\" \"nodemon server.js\" "
   },
   "repository": {
     "type": "git",

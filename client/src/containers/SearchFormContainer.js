@@ -3,7 +3,6 @@ import SearchForm from "../components/SearchForm";
 import { fetchBooks } from "../actions";
 
 const mapDispatchToProps = dispatch => {
-  console.log("yo!");
   return {
     handleFetch: e => {
       e.preventDefault();
