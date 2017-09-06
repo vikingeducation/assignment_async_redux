@@ -15,8 +15,30 @@ app.get("/goodreads/:query", async (req, res, next) => {
   const query = req.params.query;
   let xmlRes = await fetch(baseUrlSearch(query));
   xmlRes = await xmlRes.text();
-  let jsonRes = await parseString(xmlRes);
-  console.log(jsonRes);
+  // console.log(xmlRes);
+  // let jsonRes = await parseString(xmlRes);
+  parseString(xmlRes, (err, result) => {
+    const responseObj = {
+      results: result.GoodreadsResponse.search[0].results[0].work.map(work => {
+        return {
+          title: work.best_book[0].title[0],
+          bookId: work.id[0]._,
+          author: work.best_book[0].author[0].name[0],
+          image: work.best_book[0].small_image_url[0]
+        };
+      })
+    };
+
+    // console.log(
+    //   JSON.stringify(
+    //     result.GoodreadsResponse.search[0].results[0].work,
+    //     null,
+    //     2
+    //   )
+    // );
+    console.log(responseObj);
+    res.json(responseObj);
+  });
 });
 
 app.get("/goodreads/show/:book", async (req, res, next) => {
@@ -26,6 +48,6 @@ app.get("/goodreads/show/:book", async (req, res, next) => {
   console.log(jsonRes);
 });
 
-app.listen(3001, "0.0.0.0", (req, res) => {
-  console.log("listening on port 3001");
+app.listen(3000, "0.0.0.0", (req, res) => {
+  console.log("listening on port 3000");
 });
