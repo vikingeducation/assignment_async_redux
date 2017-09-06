@@ -26,7 +26,7 @@ module.exports = {
 				.buffer();
 
 			// Parse the string.
-			return parseString(response.text).GoodreadsResponse.author;
+			return (await parseString(response.text)).GoodreadsResponse.author;
 		} catch (error) {
 			console.error(error, error.stack);
 		}
