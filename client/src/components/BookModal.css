@@ -1,0 +1,8 @@
+#modal {
+  background: rgba(9, 10, 9, 1);
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  margin: 5%;
+  color: white;
+}
