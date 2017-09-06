@@ -38,7 +38,10 @@ app.get("/api/books", async (req, res, next) => {
     const url = `${baseUrl}/search/index.xml?key=${GOODREADS_API_KEY}&q=${query}&search[field]=${field}`;
     const response = checkStatus(await fetch(url));
     const text = await response.text();
-    res.json(await convert(text));
+    let jsonData = await convert(text, {explicitArray: false});
+    console.log(JSON.stringify(jsonData.GoodreadsResponse, null, 2));
+    console.log("Search array length: ", jsonData.GoodreadsResponse.search.length);
+    res.json(jsonData);
   } catch (error) {
     next(error);
   }

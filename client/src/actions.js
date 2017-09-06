@@ -52,6 +52,7 @@ const setBooks = (bookList) => {
 
 export const fetchBooks = (query = "", field = "") => async (dispatch) => {
   try {
+    console.log(query, field);
     dispatch(setFetching());
     const response = await fetch(`api/books?query=${query}&field=${field}`)
     if (!response.ok) {
