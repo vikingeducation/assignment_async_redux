@@ -4,7 +4,8 @@
   "description": "Reading is FUNdamental... for learning async actions in Redux",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently -c red,green \"cd client && npm start\" \"nodemon server.js\" "
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/thebopshoobop/assignment_async_redux#readme",
   "dependencies": {
+    "concurrently": "^3.5.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "isomorphic-fetch": "^2.2.1",
