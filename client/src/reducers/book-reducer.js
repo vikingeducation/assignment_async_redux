@@ -1,5 +1,6 @@
 // client/src/reducers.js
 import { BookActions } from '../actions';
+// const { BookActions } = require('../actions').actions;
 
 const initialState = {
 	books: [],
