@@ -6,6 +6,7 @@ import './App.css';
 
 import PageHeader from '../../components/PageHeader';
 import BookList from '../../containers/BookList';
+import Search from '../../containers/Search';
 
 class App extends Component {
 	render() {
@@ -13,6 +14,7 @@ class App extends Component {
 		return (
 			<div className="container">
 				<PageHeader />
+				<Search />
 				<BookList />
 			</div>
 		);

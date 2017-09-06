@@ -3,20 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import './Book.css';
-
-const Book = ({ id, rating, ratingsCount, year, book }) => {
-	const { title, author, img } = book;
-	return (
-		<li className="row">
-			<div className="col-md-2">
-				<div className="thumbnail">
-					<img className="book-img" src={img} alt="" />
-				</div>
-			</div>
-			<div className="col-md-6 col-md-offset-1">INFORMATION</div>
-		</li>
-	);
-};
+import Book from '../../components/Book';
 
 class BookList extends Component {
 	componentDidMount() {

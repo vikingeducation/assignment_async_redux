@@ -25,14 +25,16 @@ export function getSearchBooksFailure(error) {
 }
 
 export const getInitialBooks = () => async dispatch => {
+	dispatch(searchBooks({ author: 'rowling' }));
+};
+
+export const searchBooks = data => async dispatch => {
 	dispatch(getSearchBooksRequest());
 
 	try {
 		const response = await superagent
 			.get('api/searchBooks')
-			.query({
-				author: 'rowling'
-			})
+			.query(data)
 			.buffer();
 
 		dispatch(getSearchBooksSuccess(response.body));
