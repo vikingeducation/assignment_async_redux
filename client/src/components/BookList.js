@@ -15,7 +15,7 @@ const BookList = ({ books, status, showBookHandler, modal, hideModal }) => (
       ))}
     </Showable>
     <Showable condition={modal.visible}>
-      <BookModal book={modal.book} onClick={hideModal} />
+      <BookModal book={modal.book} visible={modal.visible} onClick={hideModal} />
     </Showable>
   </div>
 );
