@@ -4,7 +4,9 @@ const { GRManager } = require('../utils');
 router.prefix('/api');
 
 router.get('/searchAuthors/:name', async (ctx, next) => {
-	GRManager.searchAuthors(ctx.params.name);
+	ctx.body = {
+		body: await GRManager.searchAuthors(ctx.params.name)
+	};
 });
 
 router.get('/string', async (ctx, next) => {
