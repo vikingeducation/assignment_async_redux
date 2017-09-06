@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SearchContainer from "./containers/SearchContainer";
-// import
+import DisplayContainer from "./containers/DisplayContainer";
 
 class App extends Component {
   render() {
@@ -10,6 +10,7 @@ class App extends Component {
           <h2>AWESOME OPPOSUM</h2>
         </div>
         <SearchContainer />
+        <DisplayContainer />
       </div>
     );
   }

@@ -1,15 +1,21 @@
-import React from 'react'
+import React from "react";
+import Link from "./Link";
 
-const Linklist = (props) => {
-  const {bookList} = props
+const LinkList = props => {
+  const { bookList } = props;
 
-  const buttonList = booklist.map(work=>{
-    return <li key=work.id>work.best_book.title
-    }
-  )
+  const buttonList = bookList.map(book => {
+    return <Link key={book.id} name={book.best_book.title} />;
+  });
 
   return (
+    <div>
+      {buttonList}
+    </div>
+  );
+};
+export default LinkList;
 
-
-  )
-export default Linklist
+// good response
+// -search
+// --results = [ {} {} ]

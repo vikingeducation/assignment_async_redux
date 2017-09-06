@@ -51,7 +51,8 @@ app.get("/api/book", (req, res, next) => {
       });
     })
     .then(json => {
-      res.json(json);
+      // res.json(JSON.stringify(json, null, "\t"));
+      res.send(JSON.stringify(json, null, "\n"));
     })
     .catch(error => {
       next(error);
