@@ -38,9 +38,19 @@ app.get("/api/books", async (req, res, next) => {
     const url = `${baseUrl}/search/index.xml?key=${GOODREADS_API_KEY}&q=${query}&search[field]=${field}`;
     const response = checkStatus(await fetch(url));
     const text = await response.text();
-    let jsonData = await convert(text, {explicitArray: false});
-    console.log(JSON.stringify(jsonData.GoodreadsResponse, null, 2));
-    console.log("Search array length: ", jsonData.GoodreadsResponse.search.length);
+    const jsonData = await convert(text, {explicitArray: false});
+    const worksArray = jsonData.GoodreadsResponse.search.results.work.map(work => {
+      return {
+        id: work.best_book.id,
+        title: work.best_book.title,
+        author: work.best_book.author.name,
+        image: work.best_book.img_url,
+        year: work.original_publication_year,
+        rating: work.average_rating
+      }
+    })
+    
+    console.log(JSON.stringify(worksArray[0], null, 2));
     res.json(jsonData);
   } catch (error) {
     next(error);
