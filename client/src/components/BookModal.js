@@ -3,6 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 
 const BookModal = ({ book, onClick }) => {
   const htmlDesc = { __html: book.description };
+  const htmlRev = { __html: book.reviews };
   const modalStyle = {
     maxHeight: "100%",
     overflowY: "auto"
@@ -26,6 +27,7 @@ const BookModal = ({ book, onClick }) => {
           Year: {book.year} Rating: {book.rating}
           <h4>Description:</h4>
           <p dangerouslySetInnerHTML={htmlDesc} />
+          <div dangerouslySetInnerHTML={htmlRev} />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={onClick}>Close</Button>
