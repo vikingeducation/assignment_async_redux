@@ -22,6 +22,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "isomorphic-fetch": "^2.2.1",
+    "redux-devtools-extension": "^2.13.2",
     "xml-to-json-promise": "0.0.3",
     "xml2js": "^0.4.19"
   }
