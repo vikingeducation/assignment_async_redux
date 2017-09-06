@@ -1,4 +1,4 @@
-const { superagent, parseString } = require('../../../utils/Superagent');
+const { superagent, parseString } = require('../utils/Superagent');
 
 export const GET_SEARCH_BOOKS_REQUEST = 'GET_SEARCH_BOOKS_REQUEST';
 export const GET_SEARCH_BOOKS_SUCCESS = 'GET_SEARCH_BOOKS_SUCCESS';
