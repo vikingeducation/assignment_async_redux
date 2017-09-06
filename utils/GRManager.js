@@ -55,19 +55,41 @@ module.exports = {
 
 			// Parse the string.
 			const parsedResults = await parseString(response.text);
-			const bookList = parsedResults.GoodreadsResponse.search.results.work;
-			return bookList.map(_extractBooks);
+			const bookList = parsedResults.GoodreadsResponse.search.results.work.map(
+				_extractBooks
+			);
+			const books = await Promise.all(
+				bookList.map(b => {
+					const url = `https://www.goodreads.com/book/show/${b.book
+						.id}.xml?key=${API_KEY}`;
+					return new Promise((resolve, reject) => {
+						superagent.get(url).buffer().end(async (err, body) => {
+							const parsedBody = await parseString(body.text);
+							const tmpBook = parsedBody.GoodreadsResponse;
+							if (!tmpBook) reject('Error, no book found');
+							else {
+								const isbn = tmpBook.book.isbn || tmpBook.book.isbn13;
+								b.isbn = isbn;
+								resolve(b);
+							}
+						});
+					});
+				})
+			);
+			return bookList;
 		} catch (error) {
-			console.error(error, error.stack);
+			if (error.error && error.error === 'Page not found')
+				console.log('Unable to find reviews for that book');
+			else console.error(error);
 		}
 
 		function _extractBooks(book) {
 			return {
-				id: book.id._,
 				ratingsCount: book.ratings_count._,
 				rating: book.average_rating,
 				year: book.original_publication_year._,
 				book: {
+					id: book.best_book.id._,
 					img: book.best_book.image_url,
 					title: book.best_book.title,
 					author: book.best_book.author.name

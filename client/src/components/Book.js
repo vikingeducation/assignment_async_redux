@@ -2,7 +2,7 @@ import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import GoodreadsReviewWidget from './GoodreadsReviewWidget';
 
-export default ({ id, rating, ratingsCount, year, book }) => {
+export default ({ id, rating, ratingsCount, year, isbn, book }) => {
 	const { title, author, img } = book;
 
 	return (
@@ -45,7 +45,7 @@ export default ({ id, rating, ratingsCount, year, book }) => {
 					</div>
 				</div>
 			</div>
-			<GoodreadsReviewWidget />
+			<GoodreadsReviewWidget title={title} isbn={isbn} />
 		</li>
 	);
 };

@@ -1,5 +1,4 @@
 const Koa = require('koa');
-const cors = require('koa2-cors');
 const app = new Koa();
 const views = require('koa-views');
 const json = require('koa-json');
@@ -20,7 +19,6 @@ app.use(
 		enableTypes: ['json', 'form', 'text']
 	})
 );
-app.use(cors());
 app.use(json());
 app.use(logger());
 app.use(require('koa-static')(__dirname + '/public'));

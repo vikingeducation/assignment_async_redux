@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import ReactLoading from 'react-loading';
 
 class GoodreadsReviewWidget extends Component {
 	render() {
-		if (!this.props.isbn) return null;
-		const bookTitle = 'foo';
-		const isbn = '0452254264';
+		const bookTitle = this.props.bookTitle || 'foo';
+		const isbn = this.props.isbn || '0452254264';
 		return (
 			<div id="goodreads-widget">
 				<iframe

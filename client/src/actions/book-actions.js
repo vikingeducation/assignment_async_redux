@@ -37,25 +37,7 @@ export const searchBooks = data => async dispatch => {
 			.query(data)
 			.buffer();
 
-		let books = response.body.map(b => {
-			let title = b.book.title
-				.replace(/\(.*\)/gi, '')
-				.replace(/:.*$/gi, '')
-				.replace(/[^\sa-z]/gi, '')
-				.trim()
-				.replace(/\s/g, '_');
-
-			const url = `http://isbndb.com/api/v2/json/HXZLHRIH/book/${title}`;
-			return new Promise((resolve, reject) => {
-				resolve(superagent.get(url).buffer());
-			});
-		});
-
-		books = await Promise.all(books);
-
-		console.log(books, 'books');
-
-		dispatch(getSearchBooksSuccess(books));
+		dispatch(getSearchBooksSuccess(response.body));
 	} catch (error) {
 		dispatch(getSearchBooksFailure(error));
 	}

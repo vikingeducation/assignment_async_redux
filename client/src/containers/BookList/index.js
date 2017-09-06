@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import './Book.css';
 import Book from '../../components/Book';
+import ReactLoading from 'react-loading';
 
 class BookList extends Component {
 	componentDidMount() {
@@ -13,10 +14,10 @@ class BookList extends Component {
 	render() {
 		const bookList = this.props.BookReducer.books;
 		if (!bookList || !Array.isArray(bookList) || bookList.length === 0)
-			return null;
+			return <ReactLoading type="bars" color="#444" />;
 		return (
 			<ul className="list-unstyled">
-				{bookList.map(book => <Book key={book.id} {...book} />)}
+				{bookList.map(book => <Book key={book.book.id} {...book} />)}
 			</ul>
 		);
 	}
