@@ -14,7 +14,7 @@ class App extends Component {
 		return (
 			<div className="container">
 				<PageHeader />
-				<Search />
+				<Search onSubmitSearch={this.props.searchBooks} />
 				<BookList />
 			</div>
 		);

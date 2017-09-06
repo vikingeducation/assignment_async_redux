@@ -25,7 +25,7 @@ export function getSearchBooksFailure(error) {
 }
 
 export const getInitialBooks = () => async dispatch => {
-	dispatch(searchBooks({ author: 'rowling' }));
+	searchBooks({ author: 'rowling' })(dispatch);
 };
 
 export const searchBooks = data => async dispatch => {
@@ -36,6 +36,8 @@ export const searchBooks = data => async dispatch => {
 			.get('api/searchBooks')
 			.query(data)
 			.buffer();
+
+		console.log(response.body);
 
 		dispatch(getSearchBooksSuccess(response.body));
 	} catch (error) {

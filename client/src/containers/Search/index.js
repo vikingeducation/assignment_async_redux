@@ -8,33 +8,23 @@ import './Search.css';
 class Search extends Component {
 	onSubmitSearch = e => {
 		e.preventDefault();
-
 		const data = serialize(e.target, { hash: true });
 
-		this.props.onSubmitSearch(data);
+		this.props.actions.searchBooks(data);
 	};
 
 	render() {
 		return (
 			<form className="form-inline" onSubmit={this.onSubmitSearch}>
-				<div className="form-group">
-					<label htmlFor="title">Search by Title</label>
+				<div className="form-group col-md-5 col-md-offset-1">
+					<label htmlFor="title">Search by Title or Author</label>{' '}
 					<input type="text" name="title" id="title" className="form-control" />
-				</div>
-
-				<div className="form-group">
-					<label htmlFor="author">Search by Author</label>
-					<input
-						type="text"
-						name="author"
-						id="author"
-						className="form-control"
-					/>
 				</div>
 
 				<button className="btn btn-primary" type="submit">
 					Search
 				</button>
+				<hr />
 			</form>
 		);
 	}

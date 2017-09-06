@@ -11,7 +11,6 @@ class BookList extends Component {
 	}
 
 	render() {
-		console.log('book', this.props.BookReducer);
 		const bookList = this.props.BookReducer.books;
 		if (!bookList || !Array.isArray(bookList) || bookList.length === 0)
 			return null;

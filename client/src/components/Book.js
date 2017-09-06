@@ -1,5 +1,6 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
+import GoodreadsReviewWidget from './GoodreadsReviewWidget';
 
 export default ({ id, rating, ratingsCount, year, book }) => {
 	const { title, author, img } = book;
@@ -44,6 +45,7 @@ export default ({ id, rating, ratingsCount, year, book }) => {
 					</div>
 				</div>
 			</div>
+			<GoodreadsReviewWidget />
 		</li>
 	);
 };
