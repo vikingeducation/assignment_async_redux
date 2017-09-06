@@ -1,7 +1,5 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import App from "../components/App";
-import { searchBooks } from "../actions";
 
 class AppContainer extends React.Component {
   render() {

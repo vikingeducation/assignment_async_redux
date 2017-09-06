@@ -1,4 +1,3 @@
-import React from "react";
 import BookModal from "../components/BookModal";
 import { closeModal } from "../actions";
 import { connect } from "react-redux";

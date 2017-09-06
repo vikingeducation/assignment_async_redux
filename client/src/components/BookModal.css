@@ -1,9 +1,10 @@
 #modal {
-  background: rgba(9, 10, 9, 1);
   position: fixed;
-  width: 90%;
-  height: 90%;
+  width: 80%;
+  height: 80%;
+  top: 40px;
+  left: 40px;
   margin: 2.5%;
-  color: white;
+  color: black;
   z-index: 10000000000;
 }

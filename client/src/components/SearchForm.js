@@ -1,7 +1,7 @@
 import React from "react";
 
-const SearchForm = ({ searchBooks }) =>
-  <div className="form-group">
+const SearchForm = ({ searchBooks }) => (
+  <div className="form-group" style={{ margin: "50px" }}>
     <label>Search</label>
     <input
       className="form-control"
@@ -9,6 +9,7 @@ const SearchForm = ({ searchBooks }) =>
       placeholder="To Kill a Mockingbird"
       onChange={searchBooks}
     />
-  </div>;
+  </div>
+);
 
 export default SearchForm;

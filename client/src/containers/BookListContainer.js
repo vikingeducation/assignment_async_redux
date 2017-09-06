@@ -1,14 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import App from "../components/App";
 import BookList from "../components/BookList";
 import { searchBooks, fetchBook } from "../actions";
 
 class BookListContainer extends React.Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     this.props.getInitialBooks();
   }
@@ -16,7 +11,11 @@ class BookListContainer extends React.Component {
   render() {
     return (
       <div className="container">
-        <BookList books={this.props.books} fetchBook={this.props.getBook} />
+        <BookList
+          bookModal={this.props.bookModal}
+          books={this.props.books}
+          fetchBook={this.props.getBook}
+        />
       </div>
     );
   }

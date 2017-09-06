@@ -1,0 +1,21 @@
+.shaded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100000px;
+  width: 100000px;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.book {
+  padding: 30px;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:hover {
+  color: red;
+}
