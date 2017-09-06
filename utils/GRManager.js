@@ -1,5 +1,5 @@
 const superagent = require('superagent');
-
+require('dotenv').config();
 const API_KEY = process.env.API_KEY || 'foobar';
 
 const GR_BASE_URL = 'https://www.goodreads.com/';
@@ -17,7 +17,6 @@ module.exports = {
 			};
 
 			const response = await superagent.get(URL).query(queryObj);
-			console.log(response);
 		} catch (error) {
 			console.error(error, error.stack);
 		}
