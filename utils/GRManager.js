@@ -1,6 +1,8 @@
 const superagent = require('superagent');
 const { promisify } = require('bluebird');
-const parseString = promisify(require('xml2js').parseString);
+
+const parser = new require('xml2js').Parser({ explicitArray: false });
+const parseString = promisify(parser.parseString);
 require('dotenv').config();
 const API_KEY = process.env.API_KEY || 'foobar';
 
@@ -26,16 +28,13 @@ module.exports = {
 				.buffer();
 
 			// Parse the string.
-			// TODO: new xlmParser
-			return (await parseString(response.text, { explicitArray: false }))
-				.GoodreadsResponse.author;
+			return (await parseString(response.text)).GoodreadsResponse.author;
 		} catch (error) {
 			console.error(error, error.stack);
 		}
 	},
 	searchBooks: async query => {
 		const { author, title } = query;
-		// TODO: BUG!!!!!!!!
 		if (!author && !title) throw Error('SEARCH_BOOKS: No query specified');
 
 		try {
@@ -55,9 +54,25 @@ module.exports = {
 				.buffer();
 
 			// Parse the string.
-			return parseString(response.text);
+			const parsedResults = await parseString(response.text);
+			const bookList = parsedResults.GoodreadsResponse.search.results.work;
+			return bookList.map(_extractBooks);
 		} catch (error) {
 			console.error(error, error.stack);
+		}
+
+		function _extractBooks(book) {
+			return {
+				id: book.id._,
+				ratingsCount: book.ratings_count._,
+				rating: book.average_rating,
+				year: book.original_publication_year._,
+				book: {
+					img: book.best_book.image_url,
+					title: book.best_book.title,
+					author: book.best_book.author.name
+				}
+			};
 		}
 	}
 };

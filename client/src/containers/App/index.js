@@ -4,24 +4,28 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import './App.css';
 
+import PageHeader from '../../components/PageHeader';
+import BookList from '../../containers/BookList';
+
 class App extends Component {
 	render() {
 		console.log(this.props, 'props');
-		return <div>Book Search</div>;
+		return (
+			<div className="container">
+				<PageHeader />
+				<BookList />
+			</div>
+		);
 	}
 }
 
-const mapStateToProps = state => {
-	return { ...state };
-};
-const mapDispatchToProps = dispatch => {
-	return {
-		actions: bindActionCreators(
-			actions.BookActions,
-			actions.AuthorActions,
-			dispatch
-		)
-	};
-};
+const mapStateToProps = state => state;
+const mapDispatchToProps = dispatch => ({
+	actions: bindActionCreators(
+		actions.BookActions,
+		actions.AuthorActions,
+		dispatch
+	)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

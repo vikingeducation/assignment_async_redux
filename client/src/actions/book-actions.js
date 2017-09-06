@@ -35,9 +35,7 @@ export const getInitialBooks = () => async dispatch => {
 			})
 			.buffer();
 
-		console.log(response, 'response initial');
-
-		dispatch(getSearchBooksSuccess());
+		dispatch(getSearchBooksSuccess(response.body));
 	} catch (error) {
 		dispatch(getSearchBooksFailure(error));
 	}
