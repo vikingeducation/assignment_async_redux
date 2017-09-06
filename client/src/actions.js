@@ -49,3 +49,20 @@ export function getBookFailure(error) {
     error
   };
 }
+
+// const actionsObj = {
+//   GET_BOOKS_REQUEST, 
+//   GET_BOOKS_SUCCESS, 
+//   GET_BOOKS_FAILURE, 
+//   GET_BOOK_REQUEST, 
+//   GET_BOOK_SUCCESS, 
+//   GET_BOOS_FAILURE,
+//   getBooksRequest, 
+//   getBooksSuccess, 
+//   getBooksFailure, 
+//   getBookRequest, 
+//   getBookSuccess, 
+//   getBookFailure,
+//   };
+
+

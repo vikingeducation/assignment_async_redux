@@ -1,4 +1,22 @@
-import * from "./actions.js";
+
+//import React from 'react'
+import {
+  GET_BOOKS_REQUEST, 
+  GET_BOOKS_SUCCESS, 
+  GET_BOOKS_FAILURE, 
+  GET_BOOK_REQUEST, 
+  GET_BOOK_SUCCESS, 
+  GET_BOOK_FAILURE,
+  } from "./actions.js";
+
+// const {
+//   GET_BOOKS_REQUEST, 
+//   GET_BOOKS_SUCCESS, 
+//   GET_BOOKS_FAILURE, 
+//   GET_BOOK_REQUEST, 
+//   GET_BOOK_SUCCESS, 
+//   GET_BOOK_FAILURE,
+//   } = actionsObj
 
 const initialState = {
   param: "",
@@ -8,7 +26,7 @@ const initialState = {
   currentBook: null
 };
 
-export function bookReducer(state = initialState, action) {
+export default function bookReducer(state = initialState, action) {
   switch (action.type) {
     case GET_BOOKS_REQUEST:
       return {

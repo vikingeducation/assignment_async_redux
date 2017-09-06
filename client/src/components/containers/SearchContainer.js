@@ -1,14 +1,18 @@
+
+import React from 'react'
 import { Component } from "react";
 import { connect } from "react-redux";
 import Search from "../Search";
 import serialize from "form-serialize";
+import { getBooksRequest } from '../../actions.js'
 
 class SearchContainer extends Component {
   // constructor(){
   //   super()
   // }
   render() {
-    return <Search />;
+    const {onClick} = this.props
+    return <Search onClick={onClick}/>;
   }
 }
 
