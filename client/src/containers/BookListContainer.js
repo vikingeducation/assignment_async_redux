@@ -16,7 +16,7 @@ class BookListContainer extends React.Component {
   render() {
     return (
       <div className="container">
-        <BookList books={this.props.books} onClick={fetchBook} />
+        <BookList books={this.props.books} fetchBook={this.props.getBook} />
       </div>
     );
   }
@@ -30,8 +30,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getInitialBooks: () => {
       dispatch(searchBooks("to kill a mockingbird"));
-    }
-    fetchBook
+    },
+    getBook: id => () => dispatch(fetchBook(id))
   };
 };
 
