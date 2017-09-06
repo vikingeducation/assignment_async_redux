@@ -2,10 +2,14 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
 const BookModal = ({ book, onClick }) => {
-  const htmlDesc = {__html: book.description}
+  const htmlDesc = { __html: book.description };
+  const modalStyle = {
+    maxHeight: "100%",
+    overflowY: "auto"
+  };
   return (
     <div className="static-modal">
-      <Modal.Dialog onClick={onClick}>
+      <Modal.Dialog onClick={onClick} style={modalStyle}>
         <Modal.Header closeButton>
           <Modal.Title>
             <a href={book.url}>
@@ -29,6 +33,6 @@ const BookModal = ({ book, onClick }) => {
       </Modal.Dialog>
     </div>
   );
-}
+};
 
 export default BookModal;
