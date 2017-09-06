@@ -30,7 +30,7 @@ const status = (state = { isFetching: false, error: null }, action) => {
   }
 };
 
-const modal = (state = { visible: false, id: null }, action) => {
+const modal = (state = { visible: false, book: null }, action) => {
   switch (action.type) {
     case SET_MODAL:
       return action.data;

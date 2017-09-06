@@ -20,13 +20,15 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Extract check status function for reuse
-const checkStatus = response => {
+const ensureFetch = async url => {
+  const response = await fetch(url);
   if (!response.ok) {
     const error = new Error(response.statusText);
     error.response = response;
     throw error;
   }
-  return response;
+  const text = await response.text();
+  return await convert(text, { explicitArray: false });
 };
 
 const convert = require("xml-to-json-promise").xmlDataToJSON;
@@ -34,11 +36,9 @@ app.get("/api/books", async (req, res, next) => {
   try {
     const query = req.query.query || "";
     const field = req.query.field || "all";
-    console.log("Requesting Book data from GoodReads...");
+    console.log("Searching for books from GoodReads...");
     const url = `${baseUrl}/search/index.xml?key=${GOODREADS_API_KEY}&q=${query}&search[field]=${field}`;
-    const response = checkStatus(await fetch(url));
-    const text = await response.text();
-    const jsonData = await convert(text, { explicitArray: false });
+    const jsonData = await ensureFetch(url);
     const worksArray = jsonData.GoodreadsResponse.search.results.work.map(
       work => {
         return {
@@ -53,6 +53,18 @@ app.get("/api/books", async (req, res, next) => {
     );
 
     res.json(worksArray);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/api/books/:id", async (req, res, next) => {
+  try {
+    console.log("Requesting single book info from Goodreads...")
+    const url = `${baseUrl}/book/show.xml?key=${GOODREADS_API_KEY}&id=${req.params.id}`
+    const jsonData = await ensureFetch(url);
+    const bookData = jsonData.GoodreadsResponse.book
+    console.log(JSON.stringify(bookData, null, 2));
   } catch (error) {
     next(error);
   }

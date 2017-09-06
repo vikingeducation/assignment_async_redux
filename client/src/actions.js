@@ -4,11 +4,11 @@ export const SET_FETCHING = "SET_FETCHING";
 export const SET_ERROR = "SET_ERROR";
 export const SET_SUCCESS = "SET_SUCCESS";
 
-export const showModal = id => {
+const showModal = book => {
   return {
     type: SET_MODAL,
     data: {
-      id,
+      book,
       visible: true
     }
   };
@@ -18,7 +18,7 @@ export const hideModal = () => {
   return {
     type: SET_MODAL,
     data: {
-      id: null,
+      book: null,
       visible: false
     }
   };
@@ -64,3 +64,17 @@ export const fetchBooks = (query = "", field = "") => async (dispatch) => {
     dispatch(setError(error))
   }
 }
+
+export const fetchBook = id => async dispatch => {
+  try {
+    dispatch(setFetching());
+    const response = await fetch(`api/books/${id}`)
+    if (!response.ok) {
+      throw new Error(`${response.status}: ${response.statusText}`)
+    }
+    dispatch(showModal(await response.json()));
+    dispatch(setSuccess());
+  } catch (error) {
+    dispatch(setError(error))
+  }
+};
