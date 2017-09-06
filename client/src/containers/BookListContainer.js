@@ -11,7 +11,7 @@ const mapDispatchToProps = dispatch => ({
   showBookHandler: id => () => {
     dispatch(fetchBook(id));
   },
-  hideModal
+  hideModal: () => {dispatch(hideModal())}
 });
 const BookListContainer = connect(mapStateToProps, mapDispatchToProps)(
   BookList

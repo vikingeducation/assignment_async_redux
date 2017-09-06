@@ -65,10 +65,11 @@ app.get("/api/books/:id", async (req, res, next) => {
       .params.id}`;
     const jsonData = await ensureFetch(url);
     const bookData = jsonData.GoodreadsResponse.book;
-    const author = bookData.authors.author.reduce(
+    const authorData = bookData.authors.author
+    const author = authorData.length > 1 ? authorData.reduce(
       (acc, author) => (!author.role ? author.name : acc),
       ""
-    );
+    ) : authorData.name;
     res.json({
       title: bookData.title,
       description: bookData.description,
