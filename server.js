@@ -32,6 +32,16 @@ const ensureFetch = async url => {
 };
 
 const convert = require("xml-to-json-promise").xmlDataToJSON;
+
+const parseBook = book => ({
+  id: book.best_book.id._,
+  title: book.best_book.title,
+  author: book.best_book.author.name,
+  image: book.best_book.image_url,
+  year: book.original_publication_year._,
+  rating: book.average_rating
+});
+
 app.get("/api/books", async (req, res, next) => {
   try {
     const query = req.query.query || "";
@@ -39,20 +49,10 @@ app.get("/api/books", async (req, res, next) => {
     console.log("Searching for books from GoodReads...");
     const url = `${baseUrl}/search/index.xml?key=${GOODREADS_API_KEY}&q=${query}&search[field]=${field}`;
     const jsonData = await ensureFetch(url);
-    const worksArray = jsonData.GoodreadsResponse.search.results.work.map(
-      work => {
-        return {
-          id: work.best_book.id._,
-          title: work.best_book.title,
-          author: work.best_book.author.name,
-          image: work.best_book.image_url,
-          year: work.original_publication_year._,
-          rating: work.average_rating
-        };
-      }
-    );
-
-    res.json(worksArray);
+    const numResults = jsonData.GoodreadsResponse.search["total-results"];
+    if (!Number(numResults)) return res.json([]);
+    const work = jsonData.GoodreadsResponse.search.results.work;
+    res.json(numResults > 1 ? work.map(parseBook) : [parseBook(work)]);
   } catch (error) {
     next(error);
   }
@@ -60,11 +60,25 @@ app.get("/api/books", async (req, res, next) => {
 
 app.get("/api/books/:id", async (req, res, next) => {
   try {
-    console.log("Requesting single book info from Goodreads...")
-    const url = `${baseUrl}/book/show.xml?key=${GOODREADS_API_KEY}&id=${req.params.id}`
+    console.log("Requesting single book info from Goodreads...");
+    const url = `${baseUrl}/book/show.xml?key=${GOODREADS_API_KEY}&id=${req
+      .params.id}`;
     const jsonData = await ensureFetch(url);
-    const bookData = jsonData.GoodreadsResponse.book
-    console.log(JSON.stringify(bookData, null, 2));
+    const bookData = jsonData.GoodreadsResponse.book;
+    const author = bookData.authors.author.reduce(
+      (acc, author) => (!author.role ? author.name : acc),
+      ""
+    );
+    res.json({
+      title: bookData.title,
+      description: bookData.description,
+      image: bookData.image_url,
+      year: bookData.publication_year,
+      rating: bookData.average_rating,
+      url: bookData.url,
+      author,
+      reviews: bookData.reviews_widget
+    });
   } catch (error) {
     next(error);
   }

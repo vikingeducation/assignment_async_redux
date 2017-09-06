@@ -27,54 +27,53 @@ export const hideModal = () => {
 const setFetching = () => {
   return {
     type: SET_FETCHING
-  }
-}
+  };
+};
 
 const setSuccess = () => {
   return {
     type: SET_SUCCESS
-  }
-}
+  };
+};
 
-const setError = (msg) => {
+const setError = msg => {
   return {
     type: SET_ERROR,
     error: msg
-  }
-}
+  };
+};
 
-const setBooks = (bookList) => {
+const setBooks = bookList => {
   return {
     type: SET_BOOKS,
     data: bookList
-  }
-}
+  };
+};
 
-export const fetchBooks = (query = "", field = "") => async (dispatch) => {
+export const fetchBooks = (query = "", field = "") => async dispatch => {
   try {
-    console.log(query, field);
     dispatch(setFetching());
-    const response = await fetch(`api/books?query=${query}&field=${field}`)
+    const response = await fetch(`api/books?query=${query}&field=${field}`);
     if (!response.ok) {
-      throw new Error(`${response.status}: ${response.statusText}`)
+      throw new Error(`${response.status}: ${response.statusText}`);
     }
     dispatch(setBooks(await response.json()));
     dispatch(setSuccess());
   } catch (error) {
-    dispatch(setError(error))
+    dispatch(setError(error));
   }
-}
+};
 
 export const fetchBook = id => async dispatch => {
   try {
     dispatch(setFetching());
-    const response = await fetch(`api/books/${id}`)
+    const response = await fetch(`api/books/${id}`);
     if (!response.ok) {
-      throw new Error(`${response.status}: ${response.statusText}`)
+      throw new Error(`${response.status}: ${response.statusText}`);
     }
     dispatch(showModal(await response.json()));
     dispatch(setSuccess());
   } catch (error) {
-    dispatch(setError(error))
+    dispatch(setError(error));
   }
 };
