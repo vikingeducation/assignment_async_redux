@@ -7,7 +7,7 @@ class AppContainer extends React.Component {
     super();
   }
   componentDidMount() {
-    // the action creator from thunk
+    this.props.getInitialBooks();
   }
 
   render() {
@@ -15,8 +15,12 @@ class AppContainer extends React.Component {
   }
 }
 
-const mapStateToProps = () => {};
+const mapDispatchToProps = dispatch => {
+  return {
+    getInitialBooks: () => {
+      dispatch(searchBooks("to kill a mockingbird"));
+    }
+  };
+};
 
-const mapDispatchToProps = () => {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default connect(null, mapDispatchToProps)(AppContainer);

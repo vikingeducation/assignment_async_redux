@@ -1,8 +1,8 @@
-const FETCH_BOOK = "FETCH_BOOK";
-const SEARCH_BOOKS = "SEARCH_BOOKS";
-const REQUEST_START = "REQUEST_START";
-const REQUEST_SUCCESS = "REQUEST_SUCCESS";
-const REQUEST_FAILURE = "REQUEST_FAILURE";
+export const REQUEST_START = "REQUEST_START";
+export const REQUEST_SEARCH_SUCCESS = "REQUEST_SUCCESS";
+export const REQUEST_FAILURE = "REQUEST_FAILURE";
+export const REQUEST_SHOW_SUCCESS = "REQUEST_SHOW_SUCCESS";
+export const CLOSE_MODAL = "CLOSE_MODAL";
 
 export function requestStart() {
   return {
@@ -10,9 +10,16 @@ export function requestStart() {
   };
 }
 
-export function requestSuccess(data) {
+export function requestSearchSuccess(data) {
   return {
-    type: REQUEST_SUCCESS,
+    type: REQUEST_SEARCH_SUCCESS,
+    data
+  };
+}
+
+export function requestShowSuccess(data) {
+  return {
+    type: REQUEST_SHOW_SUCCESS,
     data
   };
 }
@@ -21,6 +28,12 @@ export function requestFailure(error) {
   return {
     type: REQUEST_FAILURE,
     error
+  };
+}
+
+export function closeModal() {
+  return {
+    type: CLOSE_MODAL
   };
 }
 
@@ -33,7 +46,7 @@ export const fetchBook = id => {
         return res.json();
       })
       .then(data => {
-        dispatch(requestSuccess(data));
+        dispatch(requestShowSuccess(data));
       })
       .catch(error => {
         dispatch(requestFailure(error));
@@ -41,9 +54,19 @@ export const fetchBook = id => {
   };
 };
 
-export const searchBooks = data => {
-  return {
-    type: SEARCH_BOOKS,
-    data
+export const searchBooks = query => {
+  return dispatch => {
+    dispatch(requestStart());
+
+    fetch(`https://localhost:3000/goodreads/${query}`)
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        dispatch(requestSearchSuccess(data));
+      })
+      .catch(error => {
+        dispatch(requestFailure(error));
+      });
   };
 };
