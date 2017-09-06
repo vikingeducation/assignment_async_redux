@@ -6,9 +6,9 @@ import BookModalContainer from "../containers/BookModalContainer";
 const App = () => {
   return (
     <div>
+      <SearchFormContainer />
       <BookModalContainer />
       <BookListContainer />
-      <SearchFormContainer />
     </div>
   );
 };

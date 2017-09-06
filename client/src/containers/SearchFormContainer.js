@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import App from "../components/App";
 import SearchForm from "../components/SearchForm";
+import { searchBooks } from "../actions";
 
-class SearchFormContainer extends React.Component {
-  render() {
-    return <SearchForm />;
-  }
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    searchBooks: e => {
+      dispatch(searchBooks(e.target.value));
+    }
+  };
+};
 
-export default SearchFormContainer;
+export default connect(null, mapDispatchToProps)(SearchForm);
