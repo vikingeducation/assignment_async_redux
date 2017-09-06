@@ -2,20 +2,21 @@
 require("isomorphic-fetch");
 const express = require("express");
 const app = express();
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config({path: '../.env'});
 const API_CLIENT_KEY = process.env.API_CLIENT_KEY;
 const API_CLIENT_SECRET = process.env.API_CLIENT_SECRET;
+
+console.log("key = ", API_CLIENT_KEY)
 
 const port = 3001;
 const baseUrl = `https://www.goodreads.com`;
 
 function checkStatus(response) {
-  console.log("res = ", response);
-  // if (!response.ok) {
-  //   const error = new Error(response.statusText);
-  //   error.response = response;
-  //   throw error;
-  // }
+  if (!response.ok) {
+    const error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  }
 
   // Otherwise just return the response
   return response;
@@ -33,9 +34,6 @@ app.use(errorHandler);
 
 //handle XML
 const parseString = require("xml2js").parseString;
-// const xml2JSON = parseString(xml, function(err, result) {
-//   return result;
-// });
 
 //routes
 app.get("/api/book", (req, res, next) => {
@@ -48,25 +46,17 @@ app.get("/api/book", (req, res, next) => {
   );
   fetch(`${baseUrl}/search/index.xml?key=${API_CLIENT_KEY}&q=${searchParams}`)
     .then(response => {
-      return parseString(response, data => {
-        return data;
-      });
+      console.log("line 49 ",response)
+      return new Promise((resolve, reject)=>{
+        parseString(response, (err, result) => {
+        resolve(result);
+        });
+      })
     })
-    .then(checkStatus)
-    .then(json => {
-      res.json(json);
-    })
-    .catch(error => {
-      next(error);
-    });
-});
-
-//FORGET THE WIDGETS, GRAB OTHER INFO
-app.get("/api/review/:id", (req, res, next) => {
-  const bookId = req.params.id;
-  fetch(`${baseUrl}/book/show/${bookId}.json?key=${API_CLIENT_KEY}`)
-    .then(checkStatus)
-    .then(JSON.parse)
+    .then(res=>{
+      console.log("line 57 ",res)
+      checkStatus(res)
+  })
     .then(json => {
       res.json(json);
     })
