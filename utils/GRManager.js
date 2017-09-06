@@ -1,5 +1,6 @@
 const superagent = require('superagent');
-const parseString = require('xml2js').parseString;
+const { promisify } = require('bluebird');
+const parseString = promisify(require('xml2js').parseString);
 require('dotenv').config();
 const API_KEY = process.env.API_KEY || 'foobar';
 
@@ -11,28 +12,49 @@ const GR_SEARCH_BOOK_BY_AUTHOR_URL = 'search/index.xml';
 module.exports = {
 	searchAuthors: async name => {
 		try {
+			// Create URI
 			const URL = GR_BASE_URL + GR_SEARCH_AUTHOR_BY_NAME_URL + name;
-			console.log(URL);
 			const queryObj = {
 				key: API_KEY
 			};
 
+			// Send request.
 			const response = await superagent
 				.get(URL)
 				.query(queryObj)
 				.accept('xml')
 				.buffer();
 
-			const json = await parseString(response.text);
-
-			// await response.buffer();
-			// await response.type('xml');
-
-			return json;
+			// Parse the string.
+			return parseString(response.text).GoodreadsResponse.author;
 		} catch (error) {
 			console.error(error, error.stack);
 		}
 	},
-	searchBooks: () => {},
-	searchBooksByAuthor: () => {}
+	searchBooks: async query => {
+		const { author, title } = query;
+		if (!author && !title) throw Error('SEARCH_BOOKS: No query specified');
+
+		try {
+			// Create URI
+			const URL = GR_BASE_URL + GR_SEARCH_URL;
+			const queryObj = {
+				q: author || title,
+				key: API_KEY,
+				search: author && title ? 'all' : !author && title ? 'title' : 'author'
+			};
+
+			// Send request.
+			const response = await superagent
+				.get(URL)
+				.query(queryObj)
+				.accept('xml')
+				.buffer();
+
+			// Parse the string.
+			return parseString(response.text);
+		} catch (error) {
+			console.error(error, error.stack);
+		}
+	}
 };

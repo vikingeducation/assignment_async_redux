@@ -5,7 +5,7 @@ const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
-
+const Promise = require('bluebird');
 const index = require('./routes/index');
 
 require('dotenv').config();
