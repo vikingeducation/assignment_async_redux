@@ -24,7 +24,7 @@ app.get("/goodreads/:query", async (req, res, next) => {
       return {
         title: work.best_book[0].title[0],
         id: work.best_book[0].id[0]._,
-        author: work.best_book[0].author.map(a => a.name[0]),
+        author: work.best_book[0].author[0].name[0],
         image: work.best_book[0].small_image_url[0]
       };
     })

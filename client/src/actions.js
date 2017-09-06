@@ -58,14 +58,15 @@ export const searchBooks = query => {
   return dispatch => {
     dispatch(requestStart());
 
-    fetch(`https://localhost:3000/goodreads/${query}`)
+    fetch(`http://localhost:3000/goodreads/${query}`)
       .then(res => {
         return res.json();
       })
       .then(data => {
-        dispatch(requestSearchSuccess(data));
+        dispatch(requestSearchSuccess(data.results));
       })
       .catch(error => {
+        console.log(error);
         dispatch(requestFailure(error));
       });
   };
