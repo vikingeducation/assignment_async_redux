@@ -34,9 +34,27 @@ const parseString = require("xml2js").parseString;
 // });
 
 //routes
-app.get("/api/stuff", (req, res, next) => {
+app.get("/api/book_search_stuff", (req, res, next) => {
   const searchParams = "stuff";
-  fetch(`${baseUrl}search/index.xml?key=${API_CLIENT_KEY}&q=${searchParams}`)
+  fetch(`${baseUrl}/search/index.xml?key=${API_CLIENT_KEY}&q=${searchParams}`)
+    .then(response => {
+      return parseString(response, () => {
+        return response;
+      });
+    })
+    .then(checkStatus)
+    .then(json => {
+      res.json(json);
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+app.get("/api/review_search_stuff", (req, res, next) => {
+  const bookId = //some thing
+  const searchParams = "stuff";
+  fetch(`${baseUrl}/book/show/${bookId}.json?key=${API_CLIENT_KEY}`)
     .then(response => {
       return parseString(response, () => {
         return response;
