@@ -26,13 +26,16 @@ module.exports = {
 				.buffer();
 
 			// Parse the string.
-			return (await parseString(response.text)).GoodreadsResponse.author;
+			// TODO: new xlmParser
+			return (await parseString(response.text, { explicitArray: false }))
+				.GoodreadsResponse.author;
 		} catch (error) {
 			console.error(error, error.stack);
 		}
 	},
 	searchBooks: async query => {
 		const { author, title } = query;
+		// TODO: BUG!!!!!!!!
 		if (!author && !title) throw Error('SEARCH_BOOKS: No query specified');
 
 		try {
