@@ -41,7 +41,7 @@ export const fetchBook = id => {
   return dispatch => {
     dispatch(requestStart());
 
-    fetch(`https://localhost:3000/goodreads/show/${id}`)
+    fetch(`http://localhost:3000/goodreads/show/${id}`)
       .then(res => {
         return res.json();
       })
