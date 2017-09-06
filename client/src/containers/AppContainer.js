@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "redux";
-import { mapStateToProps, mapDispatchToProps } from "react-redux";
+import { connect } from "react-redux";
 import App from "../components/App";
 
 class AppContainer extends React.Component {
@@ -15,5 +14,9 @@ class AppContainer extends React.Component {
     return <App />;
   }
 }
+
+const mapStateToProps = () => {};
+
+const mapDispatchToProps = () => {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
