@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import App from "../components/App";
 import BookList from "../components/BookList";
-import { searchBooks } from "../actions";
+import { searchBooks, fetchBook } from "../actions";
 
 class BookListContainer extends React.Component {
   constructor() {
@@ -14,7 +14,11 @@ class BookListContainer extends React.Component {
   }
 
   render() {
-    return <BookList books={this.props.books} />;
+    return (
+      <div className="container">
+        <BookList books={this.props.books} onClick={fetchBook} />
+      </div>
+    );
   }
 }
 
@@ -27,6 +31,7 @@ const mapDispatchToProps = dispatch => {
     getInitialBooks: () => {
       dispatch(searchBooks("to kill a mockingbird"));
     }
+    fetchBook
   };
 };
 
