@@ -6,22 +6,8 @@ require("dotenv").config({ path: "../.env" });
 const API_CLIENT_KEY = process.env.API_CLIENT_KEY;
 const API_CLIENT_SECRET = process.env.API_CLIENT_SECRET;
 
-// console.log("key = ", API_CLIENT_KEY)
-
 const port = 3001;
 const baseUrl = `https://www.goodreads.com`;
-//
-// function checkStatus(response) {
-//   console.log("response ");
-//   if (!response.Body.statusText === "OK") {
-//     const error = new Error(response.statusText);
-//     error.response = response;
-//     throw error;
-//   }
-//
-//   // Otherwise just return the response
-//   return response;
-// }
 
 //handle some errors
 function errorHandler(err, req, res, next) {
@@ -52,7 +38,7 @@ app.get("/api/book", (req, res, next) => {
     })
     .then(json => {
       // res.json(JSON.stringify(json, null, "\t"));
-      res.send(JSON.stringify(json, null, "\n"));
+      return res.end(JSON.stringify(json, null, " "));
     })
     .catch(error => {
       next(error);
