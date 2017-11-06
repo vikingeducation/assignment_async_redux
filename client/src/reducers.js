@@ -1,7 +1,9 @@
 import * as Actions from "./actions";
 
 const initialState = {
-  goodreads: {},
+  goodreads: [],
+  searchText: "",
+  bookSelected: {},
   isFetching: false,
   error: null
 };
@@ -9,10 +11,12 @@ const initialState = {
 export function goodreads(state = initialState, action) {
   switch (action.type) {
     case Actions.GET_GOODREADS_SUCCESS:
+      console.log(action);
       return {
         ...state,
         goodreads: action.data,
-        isFetching: false
+        isFetching: false,
+        bookSelected: {}
       };
     case Actions.GET_GOODREADS_REQUEST:
       return {
@@ -25,6 +29,17 @@ export function goodreads(state = initialState, action) {
         ...state,
         isFetching: false,
         error: action.error
+      };
+    case Actions.SET_SEARCH_TEXT:
+      return {
+        ...state,
+        searchText: action.data
+      };
+    case Actions.SET_BOOK_INFO:
+      return {
+        ...state,
+        bookSelected: action.data,
+        isFetching: false
       };
     default:
       return state;

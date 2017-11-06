@@ -1,31 +1,36 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Goodread from "../Goodread/Goodread";
-import { getInitialGoodreads } from "../actions";
+import Goodread from "../components/Goodread/Goodread";
+import { getBookInfo } from "../actions";
 
 class GoodreadsContainer extends Component {
-  componentDidMount() {
-    this.props.getInitialGoodreads();
-  }
-
   render() {
-    const { goodreads, isFetching } = this.props;
+    const { goodreads, isFetching, bookDetails, bookSelected } = this.props;
 
-    return <Goodread goodreads={goodreads} isFetching={isFetching} />;
+    return (
+      <Goodread
+        goodreads={goodreads}
+        isFetching={isFetching}
+        bookDetails={bookDetails}
+        bookSelected={bookSelected}
+      />
+    );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state = []) => {
   return {
     goodreads: state.goodreads,
-    isFetching: state.isFetching
+    isFetching: state.isFetching,
+    bookSelected: state.bookSelected
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getInitialGoodreads: () => {
-      dispatch(getInitialGoodreads());
+    bookDetails: id => {
+      console.log("dispatch book", id);
+      dispatch(getBookInfo(id));
     }
   };
 };

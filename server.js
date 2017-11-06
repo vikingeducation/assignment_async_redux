@@ -28,9 +28,24 @@ function parseJson(response) {
   return fastXmlParser.parse(response.body._buffer.toString());
 }
 
-app.get("/api/goodreads", (req, res, next) => {
-  console.log("Requesting Book Data...");
-  fetch(`${baseUrl}search/index.xml?key=${GOODREADS_API_KEY}&q=Ender`)
+app.get("/api/goodreads/search", (req, res, next) => {
+  console.log(`Requesting Search Data Of ${req.query.book}...`);
+  fetch(
+    `${baseUrl}search/index.xml?key=${GOODREADS_API_KEY}&q=${req.query.book}`
+  )
+    .then(checkStatus)
+    .then(parseJson)
+    .then(response => {
+      res.send(response);
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+app.get("/api/goodreads/book", (req, res, next) => {
+  console.log(`Requesting Book ID:${req.query.bookid} Data...`);
+  fetch(`${baseUrl}book/show/${req.query.bookid}.xml?key=${GOODREADS_API_KEY}`)
     .then(checkStatus)
     .then(parseJson)
     .then(response => {
