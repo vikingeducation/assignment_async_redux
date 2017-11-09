@@ -1,9 +1,40 @@
 import { combineReducers } from "redux";
 
-import { getResults } from "./actions";
+import {
+	GET_GOODREADS_REQUEST,
+	GET_GOODREADS_SUCCESS,
+	GET_GOODREADS_FAILURE
+} from "./actions";
 
-function bookList(state = {}, actions) {
-	return state;
+const initialState = {
+	bookList: {},
+	isFetching: false,
+	error: null
+};
+
+function bookList(state = initialState, action) {
+	switch (action.type) {
+		case GET_GOODREADS_REQUEST:
+			return {
+				...state,
+				isFetching: true,
+				error: null
+			};
+		case GET_GOODREADS_SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				bookList: action.data
+			};
+		case GET_GOODREADS_FAILURE:
+			return {
+				...state,
+				isFetching: false,
+				error: action.error
+			};
+		default:
+			return state;
+	}
 }
 
 //combine reducers

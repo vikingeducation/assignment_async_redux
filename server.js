@@ -14,9 +14,28 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
+//handle xml respone
+const parseString = require("xml2js").parseString;
+// Set development port to 3001
 app.set("port", process.env.PORT || 3001);
 
+// When in production, only serve static assets
+// from the client/build folder
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static("client/build"));
+}
+//Api keys and secrets
+const GOODREADS_API_KEY = process.env.GOODREADS_API_KEY;
+const baseURL = "https://www.goodreads.com/";
+let path = "";
+
 function checkStatus(response) {
+	return parseString(response, (err, result) => {
+		if (err) reject(err);
+
+		return result;
+	});
+
 	if (!response.ok) {
 		const error = new Error(response.statusText);
 		error.response = response;
@@ -34,13 +53,16 @@ function errorHandler(err, req, res, next) {
 	res.status(err.response ? err.response.status : 500);
 	res.json({ error: err.message });
 }
-
-app.get("/", (req, res, next) => {
+`https://www.goodreads.com/search/index.xml?key=WCybhC1XGmrIm4ZBvF4sbg&q=Ender%27s+Game`;
+app.get(`/test`, (req, res, next) => {
 	console.log("Requesting data from goodreads API");
-	fetch(`${baseUrl}....`)
+	fetch()
+		.then(response => response.text())
 		.then(checkStatus)
 		.then(parseJSON)
-		.then(json => res.json(json))
+		.then(json => {
+			return res.end(JSON.stringify(json, null, " "));
+		})
 		.catch(error => next(error));
 });
 
