@@ -8,14 +8,15 @@ Next, set up your client using Create React App. Your user interface should incl
 
 Clicking on a particular book should show that book's detailed information including some of the reviews for it. You can experiment with how to show this detailed information. For example, think through how you would make it a modal. How do modals work? They typically just need a trigger attribute to be set on the element. You can easily do this with props, managing whether it is open or not using state in Redux.
 */
-require("es6-promise").polyfill();
-require("isomorphic-fetch");
 require("dotenv").config();
 const express = require("express");
 const app = express();
+//const async = require("async");
+const fetch = require("node-fetch");
+//var wrap = require("async-middleware").wrap;
 
-//handle xml respone
-const parseString = require("xml2js").parseString;
+//handle xml response
+const xml2js = require("xml2js");
 // Set development port to 3001
 app.set("port", process.env.PORT || 3001);
 
@@ -25,49 +26,55 @@ if (process.env.NODE_ENV === "production") {
 	app.use(express.static("client/build"));
 }
 //Api keys and secrets
-const GOODREADS_API_KEY = process.env.GOODREADS_API_KEY;
+const key = process.env.GOODREADS_API_KEY;
 const baseURL = "https://www.goodreads.com/";
-let path = "";
 
-function checkStatus(response) {
-	return parseString(response, (err, result) => {
-		if (err) reject(err);
-
-		return result;
+async function getApi(term) {
+	let booklist;
+	const response = await fetch(
+		`https://www.goodreads.com/search/index.xml?key=WCybhC1XGmrIm4ZBvF4sbg&q=${term}`
+	);
+	//console.log("hi", xml2js.parseString(await response.text()));
+	let parsedResponse = xml2js.parseString(await response.text(), function(
+		err,
+		result
+	) {
+		// array of books
+		let resultArray = result.GoodreadsResponse.search[0].results[0].work;
+		//grab pertinent data from resultsArray
+		let bookArray = resultArray.map(item => {
+			return item.best_book[0];
+		});
+		//create array of book results for export
+		bookList = bookArray.map(item => {
+			return {
+				title: item.title[0],
+				author: item.author[0].name[0],
+				img_url: item.image_url[0]
+			};
+		});
 	});
-
-	if (!response.ok) {
-		const error = new Error(response.statusText);
-		error.response = response;
-		throw error;
-	}
-	return response; //no error
+	//console.log("BBBLLL", bookList);
+	return bookList;
 }
 
-function parseJSON(response) {
-	return response.json();
-}
+app.get("/results", async (req, res, next) => {
+	//console.log("TEST", await getApi("kill"));
+	console.log("Getting search results from goodreads API");
+	let result = await getApi("kill");
+	//console.log("RESULTS", result);
+	res.json(result);
+	//res.json({ message: "I'm just testing to see if this works" });
+});
 
+// Defines next action for errors
 function errorHandler(err, req, res, next) {
-	console.error("Error", err.stack);
+	console.error("Error: ", err.stack);
 	res.status(err.response ? err.response.status : 500);
 	res.json({ error: err.message });
 }
-`https://www.goodreads.com/search/index.xml?key=WCybhC1XGmrIm4ZBvF4sbg&q=Ender%27s+Game`;
-app.get(`/test`, (req, res, next) => {
-	console.log("Requesting data from goodreads API");
-	fetch()
-		.then(response => response.text())
-		.then(checkStatus)
-		.then(parseJSON)
-		.then(json => {
-			return res.end(JSON.stringify(json, null, " "));
-		})
-		.catch(error => next(error));
-});
 
 app.use(errorHandler);
-
 app.listen(app.get("port"), () => {
 	console.log(`server at http://localhost:${app.get("port")}/`);
 });

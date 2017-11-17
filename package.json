@@ -16,10 +16,16 @@
 		"url": "https://github.com/rollsthomas/assignment_async_redux/issues"
 	},
 	"dependencies": {
+		"async": "^2.6.0",
+		"async-await": "^0.1.40",
+		"async-middleware": "^1.2.1",
 		"dotenv": "^4.0.0",
 		"es6-promise": "^4.1.1",
 		"express": "^4.16.2",
+		"fast-xml-parser": "^2.7.4",
 		"isomorphic-fetch": "^2.2.1",
+		"node-fetch": "^1.7.3",
+		"npm": "^5.5.1",
 		"xml2js": "^0.4.19"
 	}
 }

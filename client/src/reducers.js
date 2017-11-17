@@ -21,6 +21,7 @@ function bookList(state = initialState, action) {
 				error: null
 			};
 		case GET_GOODREADS_SUCCESS:
+			console.log("array of books", action.data);
 			return {
 				...state,
 				isFetching: false,
