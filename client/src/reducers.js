@@ -15,7 +15,6 @@ const initialState = {
 };
 
 function bookList(state = initialState, action) {
-	console.log("initialState", state);
 	switch (action.type) {
 		case GET_GOODREADS_REQUEST:
 			return {

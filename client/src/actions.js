@@ -31,13 +31,13 @@ export function handleChange(data) {
 		data
 	};
 }
-export function getResults() {
+export function getResults(value) {
 	//console.log("in getResults");
 	return dispatch => {
 		// Update the state so that it knows the request has begun
 		dispatch(getGOODREADSRequest());
 
-		fetch(`/results`)
+		fetch(`/results?search=${value}`)
 			.then(response => {
 				// If response not okay, throw an error
 				if (!response.ok) {

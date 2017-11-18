@@ -2,9 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const SearchForm = ({ onSubmit, isFetching, onChange, value }) => {
-	console.log("onsubmit", value);
+	let handleSubmit = e => {
+		e.preventDefault();
+		onSubmit(value);
+	};
 	return (
-		<form className="searchForm" onSubmit={e => onSubmit(e)}>
+		<form className="searchForm" onSubmit={e => handleSubmit(e)}>
 			<input type="radio" name="search-type" value="title" /> By Title
 			<input type="radio" name="search-type" value="author" /> By Author
 			<br />

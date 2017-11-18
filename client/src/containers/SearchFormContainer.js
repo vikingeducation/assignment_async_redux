@@ -22,12 +22,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onSubmit: e => {
-			e.preventDefault();
-			dispatch(getResults());
+		onSubmit: value => {
+			dispatch(getResults(value));
+			dispatch(handleChange(""));
 		},
 		onChange: e => {
-			console.log("E", e.target.value);
+			//console.log("E", e.target.value);
 			dispatch(handleChange(e.target.value));
 		}
 	};
