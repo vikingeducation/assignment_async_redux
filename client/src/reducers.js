@@ -3,16 +3,19 @@ import { combineReducers } from "redux";
 import {
 	GET_GOODREADS_REQUEST,
 	GET_GOODREADS_SUCCESS,
-	GET_GOODREADS_FAILURE
+	GET_GOODREADS_FAILURE,
+	HANDLE_CHANGE
 } from "./actions";
 
 const initialState = {
 	bookList: {},
 	isFetching: false,
-	error: null
+	error: null,
+	searchBy: "title"
 };
 
 function bookList(state = initialState, action) {
+	console.log("initialState", state);
 	switch (action.type) {
 		case GET_GOODREADS_REQUEST:
 			return {
@@ -37,8 +40,17 @@ function bookList(state = initialState, action) {
 			return state;
 	}
 }
+function searchValue(state = "", action) {
+	switch (action.type) {
+		case HANDLE_CHANGE:
+			return action.data;
+		default:
+			return state;
+	}
+}
 
 //combine reducers
 export const goodReadsApp = combineReducers({
-	bookList
+	bookList,
+	searchValue
 });

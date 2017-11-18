@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import SearchForm from "../components/SearchForm";
-import { getResults } from "../actions";
+import { getResults, handleChange } from "../actions";
 
 class SearchFormContainer extends Component {
 	componentDidMount() {}
 	render() {
-		const { isFetching, onSubmit } = this.props;
-		return <SearchForm onSubmit={onSubmit} isFetching={isFetching} />;
+		//const { isFetching, onSubmit, searchBy } = this.props;
+		return <SearchForm {...this.props} />;
 	}
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
+	//console.log("mapState", state);
 	return {
-		isFetching: state.isFetching
+		isFetching: state.bookList.isFetching,
+		searchBy: state.bookList.searchBy, //author or title
+		value: state.searchValue
 	};
 };
 
@@ -22,11 +25,14 @@ const mapDispatchToProps = dispatch => {
 		onSubmit: e => {
 			e.preventDefault();
 			dispatch(getResults());
+		},
+		onChange: e => {
+			console.log("E", e.target.value);
+			dispatch(handleChange(e.target.value));
 		}
 	};
 };
 
-SearchFormContainer.propTypes = {};
 export default connect(mapStateToProps, mapDispatchToProps)(
 	SearchFormContainer
 );

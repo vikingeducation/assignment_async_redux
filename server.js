@@ -23,58 +23,58 @@ app.set("port", process.env.PORT || 3001);
 // When in production, only serve static assets
 // from the client/build folder
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static("client/build"));
+  app.use(express.static("client/build"));
 }
 //Api keys and secrets
 const key = process.env.GOODREADS_API_KEY;
 const baseURL = "https://www.goodreads.com/";
 
 async function getApi(term) {
-	let booklist;
-	const response = await fetch(
-		`https://www.goodreads.com/search/index.xml?key=WCybhC1XGmrIm4ZBvF4sbg&q=${term}`
-	);
-	//console.log("hi", xml2js.parseString(await response.text()));
-	let parsedResponse = xml2js.parseString(await response.text(), function(
-		err,
-		result
-	) {
-		// array of books
-		let resultArray = result.GoodreadsResponse.search[0].results[0].work;
-		//grab pertinent data from resultsArray
-		let bookArray = resultArray.map(item => {
-			return item.best_book[0];
-		});
-		//create array of book results for export
-		bookList = bookArray.map(item => {
-			return {
-				title: item.title[0],
-				author: item.author[0].name[0],
-				img_url: item.image_url[0]
-			};
-		});
-	});
-	//console.log("BBBLLL", bookList);
-	return bookList;
+  let booklist;
+  const response = await fetch(
+    `https://www.goodreads.com/search/index.xml?key=WCybhC1XGmrIm4ZBvF4sbg&q=${term}`
+  );
+  //console.log("hi", xml2js.parseString(await response.text()));
+  let parsedResponse = xml2js.parseString(await response.text(), function(
+    err,
+    result
+  ) {
+    // array of books
+    let resultArray = result.GoodreadsResponse.search[0].results[0].work;
+    //grab pertinent data from resultsArray
+    let bookArray = resultArray.map(item => {
+      return item.best_book[0];
+    });
+    //create array of book results for export
+    bookList = bookArray.map(item => {
+      return {
+        title: item.title[0],
+        author: item.author[0].name[0],
+        img_url: item.image_url[0]
+      };
+    });
+  });
+  //console.log("BBBLLL", bookList);
+  return bookList;
 }
 
 app.get("/results", async (req, res, next) => {
-	//console.log("TEST", await getApi("kill"));
-	console.log("Getting search results from goodreads API");
-	let result = await getApi("kill");
-	//console.log("RESULTS", result);
-	res.json(result);
-	//res.json({ message: "I'm just testing to see if this works" });
+  //console.log("TEST", await getApi("kill"));
+  console.log("Getting search results from goodreads API");
+  let result = await getApi("kill");
+  //console.log("RESULTS", result);
+  res.json(result);
+  //res.json({ message: "I'm just testing to see if this works" });
 });
 
 // Defines next action for errors
 function errorHandler(err, req, res, next) {
-	console.error("Error: ", err.stack);
-	res.status(err.response ? err.response.status : 500);
-	res.json({ error: err.message });
+  console.error("Error: ", err.stack);
+  res.status(err.response ? err.response.status : 500);
+  res.json({ error: err.message });
 }
 
 app.use(errorHandler);
 app.listen(app.get("port"), () => {
-	console.log(`server at http://localhost:${app.get("port")}/`);
+  console.log(`server at http://localhost:${app.get("port")}/`);
 });

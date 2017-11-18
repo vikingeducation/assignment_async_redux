@@ -1,7 +1,7 @@
 export const GET_GOODREADS_REQUEST = "GET_GOODREADS_REQUEST";
 export const GET_GOODREADS_SUCCESS = "GET_GOODREADS_SUCCESS";
 export const GET_GOODREADS_FAILURE = "GET_GOODREADS_FAILURE";
-
+export const HANDLE_CHANGE = "HANDLE_CHANGE";
 /***********************
 server actions
 ************************/
@@ -24,33 +24,15 @@ export function getGOODREADSFailure(error) {
 		error
 	};
 }
-
-//
-//let parsedResponse = xml2js.parseString(await response.text(), function() {});
-
-// console.log("RRRAAA", parsedResponse);
-//
-// let resultArray = parsedResponse.GoodreadsResponse.search[0].results[0].work;
-//
-// let bookArray = resultArray.map(item => {
-// 	return item.best_book[0];
-// });
-//
-// //create array of book results for export
-// bookList = bookArray.map(item => {
-// 	return {
-// 		title: item.title[0],
-// 		author: item.author[0].name[0],
-// 		img_url: item.image_url[0]
-// 	};
-// });
-//console.log(bookList, "response is");
-//return bookList;
-
-//
-
+export function handleChange(data) {
+	console.log("DATA", data);
+	return {
+		type: HANDLE_CHANGE,
+		data
+	};
+}
 export function getResults() {
-	console.log("in getResults");
+	//console.log("in getResults");
 	return dispatch => {
 		// Update the state so that it knows the request has begun
 		dispatch(getGOODREADSRequest());
