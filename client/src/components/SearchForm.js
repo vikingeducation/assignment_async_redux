@@ -7,9 +7,15 @@ const SearchForm = ({ onSubmit, isFetching, onChange, value }) => {
 		onSubmit(value);
 	};
 	return (
-		<form className="searchForm" onSubmit={e => handleSubmit(e)}>
+		<form className="search-form" onSubmit={e => handleSubmit(e)}>
 			<label htmlFor="search" />
-			<input type="text" name="search" value={value} onChange={onChange} />
+			<input
+				type="text"
+				name="search"
+				value={value}
+				onChange={onChange}
+				placeholder="Enter search term"
+			/>
 			<button type="submit">Search</button>
 		</form>
 	);

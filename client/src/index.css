@@ -1,1 +1,46 @@
+/*
+page
+ */
+ {
+	outline: 1px solid gray;
+}
 
+.App {
+	width: 80%;
+	margin: 0 auto;
+}
+
+#title {
+	text-align: center;
+	font-size: 3rem;
+}
+/*
+Search
+ */
+.search-form {
+	width: 50%;
+	margin: 0 auto;
+	height: 2rem;
+}
+
+.search-form input {
+	width: 60%;
+}
+.search-form button {
+	width: 35%;
+}
+/*
+Book list
+ */
+#book-list {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.book-card {
+	margin: 2rem auto;
+	width: 30%;
+	list-style: none;
+	padding-left: 4px;
+	outline: 1px solid black;
+}
