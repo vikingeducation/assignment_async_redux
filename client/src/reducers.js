@@ -8,10 +8,9 @@ import {
 } from "./actions";
 
 const initialState = {
-	bookList: {},
+	bookList: [],
 	isFetching: false,
-	error: null,
-	searchBy: "title"
+	error: null
 };
 
 function bookList(state = initialState, action) {

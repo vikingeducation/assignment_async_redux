@@ -26,13 +26,13 @@ if (process.env.NODE_ENV === "production") {
 	app.use(express.static("client/build"));
 }
 //Api keys and secrets
-const key = process.env.GOODREADS_API_KEY;
-const baseURL = "https://www.goodreads.com/";
+const API_CLIENT_KEY = process.env.GOODREADS_API_KEY;
+const baseUrl = "https://www.goodreads.com";
 
 async function getApi(term) {
 	let booklist;
 	const response = await fetch(
-		`https://www.goodreads.com/search/index.xml?key=WCybhC1XGmrIm4ZBvF4sbg&q=${term}`
+		`${baseUrl}/search/index.xml?key=${API_CLIENT_KEY}&search['author']&q=${term}`
 	);
 	//console.log("hi", xml2js.parseString(await response.text()));
 	let parsedResponse = xml2js.parseString(await response.text(), function(
