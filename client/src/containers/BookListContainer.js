@@ -1,25 +1,31 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import BookList from "../components/BookList";
+import { getResults } from "../actions";
 
 class BookListContainer extends Component {
 	componentDidMount() {}
 	render() {
-		const { bookList, searchBy } = this.props;
-		//const { isFetching, onSubmit } = this.props;
-		return <BookList bookList={bookList} />;
+		const { bookList, handleBookClick } = this.props;
+
+		return <BookList bookList={bookList} handleClick={handleBookClick} />;
 	}
 }
 
 const mapStateToProps = (state, ownProps) => {
-	console.log("IN MAP", state.bookList.bookList);
 	return {
 		bookList: state.bookList.bookList
 	};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {};
+	return {
+		handleBookClick: (e, id) => {
+			e.preventDefault();
+			console.log("bklistCont e.target", e.target, "id: ", id);
+			dispatch(getResults(id, "book"));
+		}
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookListContainer);

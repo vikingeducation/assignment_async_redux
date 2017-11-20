@@ -15,7 +15,6 @@ const mapStateToProps = state => {
 	//console.log("mapState", state);
 	return {
 		isFetching: state.bookList.isFetching,
-		searchBy: state.bookList.searchBy, //author or title
 		value: state.searchValue
 	};
 };
@@ -23,8 +22,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		onSubmit: value => {
-			dispatch(getResults(value));
-			dispatch(handleChange(""));
+			dispatch(getResults(value, "bookList"));
+			dispatch(handleChange("")); //resets search input
 		},
 		onChange: e => {
 			//console.log("E", e.target.value);

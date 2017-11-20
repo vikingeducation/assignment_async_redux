@@ -29,11 +29,38 @@ if (process.env.NODE_ENV === "production") {
 const API_CLIENT_KEY = process.env.GOODREADS_API_KEY;
 const baseUrl = "https://www.goodreads.com";
 
-async function getApi(term) {
-	let booklist;
+//fetch API to populate book modal
+//id is the goodreads's API id of book that was clicked
+async function getModalApi(id) {
+	let modal;
 	const response = await fetch(
-		`${baseUrl}/search/index.xml?key=${API_CLIENT_KEY}&search['author']&q=${term}`
+		`${baseUrl}/book/show/${id}.xml?key=${API_CLIENT_KEY}`
 	);
+	let parsedResponse = xml2js.parseString(await response.text(), function(
+		err,
+		result
+	) {
+		//book obj
+		let bookData = result.GoodreadsResponse.book;
+		//book title
+		let bookTitle = result.GoodreadsResponse.book[0].title[0];
+		//book cover image
+		let bookCover = result.GoodreadsResponse.book[0].image_url[0];
+		//book description
+		let bookDescription = result.GoodreadsResponse.book[0].description[0];
+		console.log("test Modal", bookDescription);
+	});
+}
+
+async function getBookListApi(term) {
+	let booklist;
+
+	//fetch API to populate book list.
+	//term is the user search term
+	const response = await fetch(
+		`${baseUrl}/search/index.xml?key=${API_CLIENT_KEY}&q=${term}`
+	);
+
 	//console.log("hi", xml2js.parseString(await response.text()));
 	let parsedResponse = xml2js.parseString(await response.text(), function(
 		err,
@@ -50,19 +77,32 @@ async function getApi(term) {
 			return {
 				title: item.title[0],
 				author: item.author[0].name[0],
-				img_url: item.image_url[0]
+				img_url: item.image_url[0],
+				id: item.id[0]._
 			};
 		});
 	});
 	return bookList;
 }
 
-app.get("/results", async (req, res, next) => {
+//get booklist array from API to populate booklist
+app.get("/bookList", async (req, res, next) => {
 	console.log(
 		"Getting search results from goodreads API for search term: ",
 		req.query.search
 	);
-	let result = await getApi(req.query.search);
+	let result = await getBookListApi(req.query.search);
+	res.json(result);
+});
+
+//get data on clicked book for modal
+app.get("/book", async (req, res, next) => {
+	console.log(
+		"Getting search results from goodreads API for search term: ",
+		req.query.search
+	);
+	let result = await getModalApi(req.query.search);
+	console.log("Modal result", result);
 	res.json(result);
 });
 

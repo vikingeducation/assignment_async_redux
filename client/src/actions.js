@@ -2,6 +2,8 @@ export const GET_GOODREADS_REQUEST = "GET_GOODREADS_REQUEST";
 export const GET_GOODREADS_SUCCESS = "GET_GOODREADS_SUCCESS";
 export const GET_GOODREADS_FAILURE = "GET_GOODREADS_FAILURE";
 export const HANDLE_CHANGE = "HANDLE_CHANGE";
+export const SHOW_MODAL = "SHOW_MODAL";
+export const CLOSE_MODAL = "CLOSE_MODAL";
 /***********************
 server actions
 ************************/
@@ -24,20 +26,15 @@ export function getGOODREADSFailure(error) {
 		error
 	};
 }
-export function handleChange(data) {
-	console.log("DATA", data);
-	return {
-		type: HANDLE_CHANGE,
-		data
-	};
-}
-export function getResults(value) {
-	//console.log("in getResults");
+
+//gets booklist based on value argument
+export function getResults(value, type) {
+	console.log("in getResults", value);
 	return dispatch => {
 		// Update the state so that it knows the request has begun
 		dispatch(getGOODREADSRequest());
 
-		fetch(`/results?search=${value}`)
+		fetch(`/${type}?search=${value}`)
 			.then(response => {
 				// If response not okay, throw an error
 				if (!response.ok) {
@@ -57,5 +54,27 @@ export function getResults(value) {
 	};
 }
 /***********************
-
+User Events
 ************************/
+//controls state of user input into search box
+export function handleChange(data) {
+	console.log("DATA", data);
+	return {
+		type: HANDLE_CHANGE,
+		data
+	};
+}
+
+//when a book is click, show modal
+export function handleBookClick(modalObj) {
+	return {
+		type: SHOW_MODAL,
+		data: modalObj
+	};
+}
+//closes Modal when modal is clicked
+export function handleModalClick() {
+	return {
+		type: CLOSE_MODAL
+	};
+}

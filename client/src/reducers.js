@@ -4,7 +4,9 @@ import {
 	GET_GOODREADS_REQUEST,
 	GET_GOODREADS_SUCCESS,
 	GET_GOODREADS_FAILURE,
-	HANDLE_CHANGE
+	HANDLE_CHANGE,
+	SHOW_MODAL,
+	CLOSE_MODAL
 } from "./actions";
 
 const initialState = {
@@ -38,6 +40,7 @@ function bookList(state = initialState, action) {
 			return state;
 	}
 }
+
 function searchValue(state = "", action) {
 	switch (action.type) {
 		case HANDLE_CHANGE:
@@ -47,8 +50,26 @@ function searchValue(state = "", action) {
 	}
 }
 
+const initialModalState = {
+	showingModal: false,
+	bookDetails: "",
+	bookReviews: []
+};
+
+function bookModal(state = initialModalState, action) {
+	switch (action.type) {
+		case SHOW_MODAL:
+			return action.data;
+		case CLOSE_MODAL:
+			return initialState;
+		default:
+			return state;
+	}
+}
+
 //combine reducers
 export const goodReadsApp = combineReducers({
 	bookList,
-	searchValue
+	searchValue,
+	bookModal
 });
