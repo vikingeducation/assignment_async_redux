@@ -36,18 +36,24 @@ async function getModalApi(id) {
 	const response = await fetch(
 		`${baseUrl}/book/show/${id}.xml?key=${API_CLIENT_KEY}`
 	);
-	let parsedResponse = xml2js.parseString(await response.text(), function(
-		err,
-		result
-	) {
+	xml2js.parseString(await response.text(), function(err, result) {
 		let bookCover = result.GoodreadsResponse.book[0].image_url[0];
 		let bookTitle = result.GoodreadsResponse.book[0].title[0];
 		let bookDescription = result.GoodreadsResponse.book[0].description[0];
-		console.log("test Modal", result.GoodreadsResponse.book[0]);
+		let bookAuthors = result.GoodreadsResponse.book[0].authors[0].author.map(
+			author => author.name[0]
+		);
+		console.log(
+			"test Modal",
+			result.GoodreadsResponse.book[0].authors[0].author.map(
+				author => author.name[0]
+			)
+		);
 		modal = {
 			title: bookTitle,
 			cover: bookCover,
-			description: bookDescription
+			description: bookDescription,
+			authors: bookAuthors
 		};
 	});
 	return modal;
@@ -63,10 +69,7 @@ async function getBookListApi(term) {
 	);
 
 	//console.log("hi", xml2js.parseString(await response.text()));
-	let parsedResponse = xml2js.parseString(await response.text(), function(
-		err,
-		result
-	) {
+	xml2js.parseString(await response.text(), function(err, result) {
 		// array of books
 		let resultArray = result.GoodreadsResponse.search[0].results[0].work;
 		//grab pertinent data from resultsArray

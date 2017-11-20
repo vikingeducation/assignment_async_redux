@@ -13,7 +13,7 @@ let books = (booksArray, handleClick) => {
 				<h3 className="book-title">{book.title}</h3>
 				<figure className="book-cover">
 					<img src={book.img_url} alt="book cover" />
-					<figcaption>By:&nbsp;{book.author}</figcaption>
+					<figcaption>By: {book.author}</figcaption>
 				</figure>
 			</li>
 		));

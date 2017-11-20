@@ -64,7 +64,12 @@ function searchValue(state = "", action) {
 
 const initialModalState = {
 	showingModal: false,
-	bookData: {}
+	bookData: {
+		title: "",
+		cover: "",
+		description: "",
+		authors: []
+	}
 };
 
 function bookModal(state = initialModalState, action) {

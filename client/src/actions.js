@@ -5,6 +5,7 @@ export const SEARCH_RESULTS = "SEARCH_RESULTS";
 export const HANDLE_CHANGE = "HANDLE_CHANGE";
 export const SHOW_MODAL = "SHOW_MODAL";
 export const CLOSE_MODAL = "CLOSE_MODAL";
+
 /***********************
 server actions
 ************************/
@@ -28,38 +29,6 @@ export function getGOODREADSFailure(error) {
 	};
 }
 
-//gets booklist based on value argument
-export function getResults(value, type) {
-	console.log("in getResults", value);
-	return dispatch => {
-		// Update the state so that it knows the request has begun
-		dispatch(getGOODREADSRequest());
-
-		fetch(`/${type}?search=${value}`)
-			.then(response => {
-				// If response not okay, throw an error
-				if (!response.ok) {
-					console.log("error in actions.js response");
-					console.log(response);
-					throw new Error(`${response.status} ${response.statusText}`);
-				}
-				return response.json();
-			})
-			.then(data => {
-				dispatch(getGOODREADSSuccess());
-				console.log("TYPE", type);
-				if (type === "bookList") {
-					dispatch(searchResults(data));
-				} else if (type === "book") {
-					dispatch(handleBookClickAction(data));
-				}
-			})
-			.catch(error => {
-				// Dispatch failure which sets the error in state
-				dispatch(getGOODREADSFailure(error));
-			});
-	};
-}
 /***********************
 User Events
 ************************/
@@ -90,5 +59,39 @@ export function handleBookClickAction(data) {
 export function handleModalClick() {
 	return {
 		type: CLOSE_MODAL
+	};
+}
+/***********************************
+sends data to server to make API calls
+***********************************/
+//gets booklist based on value argument
+export function getResults(value, type) {
+	console.log("in getResults", value);
+	return dispatch => {
+		// Update the state so that it knows the request has begun
+		dispatch(getGOODREADSRequest());
+
+		fetch(`/${type}?search=${value}`)
+			.then(response => {
+				// If response not okay, throw an error
+				if (!response.ok) {
+					console.log("error in actions.js response");
+					console.log(response);
+					throw new Error(`${response.status} ${response.statusText}`);
+				}
+				return response.json();
+			})
+			.then(data => {
+				dispatch(getGOODREADSSuccess());
+				if (type === "bookList") {
+					dispatch(searchResults(data));
+				} else if (type === "book") {
+					dispatch(handleBookClickAction(data));
+				}
+			})
+			.catch(error => {
+				// Dispatch failure which sets the error in state
+				dispatch(getGOODREADSFailure(error));
+			});
 	};
 }
