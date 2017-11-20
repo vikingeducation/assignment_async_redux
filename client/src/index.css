@@ -66,19 +66,31 @@ Modal
 }
 #modal-header img {
 	border: 0.5px solid black;
+	height: fit-content;
 }
 
 #modal-header {
 	display: flex;
+	height: fit-content;
 	background-color: #d6d6d6;
 	border: 0.5px solid #936d6d;
 }
+
+#modal-title-container {
+	margin: 0 auto;
+	width: 100%;
+	padding-left: 1rem;
+}
 #modal-title {
+	display: block;
 	font-size: 2rem;
 	font-family: sans-serif;
-	margin: 3rem auto;
+	margin-bottom: 0;
+	margin-top: 1rem;
 }
-
+#modal-author-container {
+	display: block;
+}
 #book-description {
 	width: 90%;
 	margin: 1rem auto;
