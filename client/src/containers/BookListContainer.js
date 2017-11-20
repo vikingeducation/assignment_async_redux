@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import BookList from "../components/BookList";
-import { getResults } from "../actions";
+import { getResults, handleBookClickAction } from "../actions";
 
 class BookListContainer extends Component {
-	componentDidMount() {}
 	render() {
 		const { bookList, handleBookClick } = this.props;
 
@@ -14,7 +13,7 @@ class BookListContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		bookList: state.bookList.bookList
+		bookList: state.bookList
 	};
 };
 
@@ -22,7 +21,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		handleBookClick: (e, id) => {
 			e.preventDefault();
-			console.log("bklistCont e.target", e.target, "id: ", id);
 			dispatch(getResults(id, "book"));
 		}
 	};

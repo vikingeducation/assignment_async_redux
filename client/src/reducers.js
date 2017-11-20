@@ -4,18 +4,19 @@ import {
 	GET_GOODREADS_REQUEST,
 	GET_GOODREADS_SUCCESS,
 	GET_GOODREADS_FAILURE,
+	SEARCH_RESULTS,
 	HANDLE_CHANGE,
 	SHOW_MODAL,
 	CLOSE_MODAL
 } from "./actions";
 
-const initialState = {
-	bookList: [],
+const initialFetchState = {
 	isFetching: false,
 	error: null
 };
 
-function bookList(state = initialState, action) {
+//reducers for fetching state
+function fetchAPI(state = initialFetchState, action) {
 	switch (action.type) {
 		case GET_GOODREADS_REQUEST:
 			return {
@@ -40,6 +41,17 @@ function bookList(state = initialState, action) {
 			return state;
 	}
 }
+const initialBookListState = {
+	bookList: []
+};
+function bookList(state = initialBookListState, action) {
+	switch (action.type) {
+		case SEARCH_RESULTS:
+			return action.data;
+		default:
+			return state;
+	}
+}
 
 function searchValue(state = "", action) {
 	switch (action.type) {
@@ -52,16 +64,22 @@ function searchValue(state = "", action) {
 
 const initialModalState = {
 	showingModal: false,
-	bookDetails: "",
-	bookReviews: []
+	bookData: {}
 };
 
 function bookModal(state = initialModalState, action) {
+	console.log("inreducer for modal", action);
 	switch (action.type) {
 		case SHOW_MODAL:
-			return action.data;
+			return {
+				showingModal: true,
+				bookData: action.data
+			};
 		case CLOSE_MODAL:
-			return initialState;
+			return {
+				...state,
+				showingModal: false
+			};
 		default:
 			return state;
 	}
@@ -69,6 +87,7 @@ function bookModal(state = initialModalState, action) {
 
 //combine reducers
 export const goodReadsApp = combineReducers({
+	fetchAPI,
 	bookList,
 	searchValue,
 	bookModal

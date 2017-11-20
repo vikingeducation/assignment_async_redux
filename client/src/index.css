@@ -44,3 +44,48 @@ Book list
 	padding-left: 4px;
 	outline: 1px solid black;
 }
+
+/**************************
+Modal
+**************************/
+#modal-wrapper {
+	position: fixed;
+	background-color: rgba(100, 100, 100, 0.9);
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+}
+
+.modal {
+	background-color: white;
+	width: 80%;
+	margin: 10rem auto;
+	padding: 1rem;
+	border: 2.5px solid #534e4e;
+}
+#modal-header img {
+	border: 0.5px solid black;
+}
+
+#modal-header {
+	display: flex;
+	background-color: #d6d6d6;
+	border: 0.5px solid #936d6d;
+}
+#modal-title {
+	font-size: 2rem;
+	font-family: sans-serif;
+	margin: 3rem auto;
+}
+
+#book-description {
+	width: 90%;
+	margin: 1rem auto;
+}
+
+#book-description p {
+	font-weight: bold;
+	font-size: 1.2rem;
+	display: inline;
+}

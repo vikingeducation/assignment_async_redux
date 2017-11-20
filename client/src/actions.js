@@ -1,6 +1,7 @@
 export const GET_GOODREADS_REQUEST = "GET_GOODREADS_REQUEST";
 export const GET_GOODREADS_SUCCESS = "GET_GOODREADS_SUCCESS";
 export const GET_GOODREADS_FAILURE = "GET_GOODREADS_FAILURE";
+export const SEARCH_RESULTS = "SEARCH_RESULTS";
 export const HANDLE_CHANGE = "HANDLE_CHANGE";
 export const SHOW_MODAL = "SHOW_MODAL";
 export const CLOSE_MODAL = "CLOSE_MODAL";
@@ -45,7 +46,13 @@ export function getResults(value, type) {
 				return response.json();
 			})
 			.then(data => {
-				dispatch(getGOODREADSSuccess(data));
+				dispatch(getGOODREADSSuccess());
+				console.log("TYPE", type);
+				if (type === "bookList") {
+					dispatch(searchResults(data));
+				} else if (type === "book") {
+					dispatch(handleBookClickAction(data));
+				}
 			})
 			.catch(error => {
 				// Dispatch failure which sets the error in state
@@ -56,6 +63,13 @@ export function getResults(value, type) {
 /***********************
 User Events
 ************************/
+export function searchResults(data) {
+	return {
+		type: SEARCH_RESULTS,
+		data
+	};
+}
+
 //controls state of user input into search box
 export function handleChange(data) {
 	console.log("DATA", data);
@@ -66,10 +80,10 @@ export function handleChange(data) {
 }
 
 //when a book is click, show modal
-export function handleBookClick(modalObj) {
+export function handleBookClickAction(data) {
 	return {
 		type: SHOW_MODAL,
-		data: modalObj
+		data
 	};
 }
 //closes Modal when modal is clicked

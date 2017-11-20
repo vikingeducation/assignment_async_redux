@@ -40,16 +40,17 @@ async function getModalApi(id) {
 		err,
 		result
 	) {
-		//book obj
-		let bookData = result.GoodreadsResponse.book;
-		//book title
-		let bookTitle = result.GoodreadsResponse.book[0].title[0];
-		//book cover image
 		let bookCover = result.GoodreadsResponse.book[0].image_url[0];
-		//book description
+		let bookTitle = result.GoodreadsResponse.book[0].title[0];
 		let bookDescription = result.GoodreadsResponse.book[0].description[0];
-		console.log("test Modal", bookDescription);
+		console.log("test Modal", result.GoodreadsResponse.book[0]);
+		modal = {
+			title: bookTitle,
+			cover: bookCover,
+			description: bookDescription
+		};
 	});
+	return modal;
 }
 
 async function getBookListApi(term) {
@@ -97,12 +98,9 @@ app.get("/bookList", async (req, res, next) => {
 
 //get data on clicked book for modal
 app.get("/book", async (req, res, next) => {
-	console.log(
-		"Getting search results from goodreads API for search term: ",
-		req.query.search
-	);
+	console.log("Getting Modal results from goodreads API: ", req.query.search);
 	let result = await getModalApi(req.query.search);
-	console.log("Modal result", result);
+	//console.log("Modal result", result);
 	res.json(result);
 });
 
