@@ -12,8 +12,6 @@ const Modal = props => {
 	const { display, book, onClick } = props;
 	const modalStatus = display ? "block" : "none";
 	const authorsArray = book.authors;
-	console.log("AUTHORS_ARRAY", authorsArray);
-	console.log("AUTHORRS", bookAuthors(authorsArray));
 	function createMarkup() {
 		return { __html: book.description };
 	}
@@ -37,5 +35,9 @@ const Modal = props => {
 	);
 };
 
-Modal.propTypes = {};
+Modal.propTypes = {
+	display: PropTypes.bool.isRequired,
+	book: PropTypes.object.isRequired,
+	onClick: PropTypes.func.isRequired
+};
 export default Modal;

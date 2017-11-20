@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SearchForm = ({ onSubmit, isFetching, onChange, value }) => {
+const SearchForm = ({ onSubmit, onChange, value }) => {
 	let handleSubmit = e => {
 		e.preventDefault();
 		onSubmit(value);
@@ -23,6 +23,6 @@ const SearchForm = ({ onSubmit, isFetching, onChange, value }) => {
 
 SearchForm.propTypes = {
 	onSubmit: PropTypes.func.isRequired,
-	isFetching: PropTypes.bool.isRequired
+	value: PropTypes.string
 };
 export default SearchForm;

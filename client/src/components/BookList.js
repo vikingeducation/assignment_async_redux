@@ -26,6 +26,6 @@ const BookList = ({ bookList, handleClick }) => {
 };
 
 BookList.propTypes = {
-	bookList: PropTypes.array.isRequired
+	bookList: PropTypes.object.isRequired
 };
 export default BookList;
