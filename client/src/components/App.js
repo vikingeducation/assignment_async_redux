@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "./Modal";
 
-let App = ({ books, book, onSubmit, onClick, getGoodreads }) => {
+let App = ({ books, book, onSubmit, onClick, getGoodreads, clearBook }) => {
   console.log(books);
   console.log(book);
   let bookArray = books.map(el => {
@@ -27,7 +27,7 @@ let App = ({ books, book, onSubmit, onClick, getGoodreads }) => {
         <input type="submit" />
       </form>
 
-      <Modal book={book} />
+      <Modal book={book} clearBook={clearBook}/>
     </div>
   );
 };

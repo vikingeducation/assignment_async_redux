@@ -4,6 +4,7 @@ export const GET_GOODREADS_FAILURE = "GET_GOODREADS_FAILURE";
 export const GET_GOODREADS_BOOK_REQUEST = "GET_GOODREADS_BOOK_REQUEST";
 export const GET_GOODREADS_BOOK_SUCCESS = "GET_GOODREADS_BOOK_SUCCESS";
 export const GET_GOODREADS_BOOK_FAILURE = "GET_GOODREADS_BOOK_FAILURE";
+export const CLEAR_BOOK = "CLEAR_BOOK";
 
 export function getGoodreadsRequest() {
   return {
@@ -81,4 +82,10 @@ export function getGoodreadsBook(id) {
         dispatch(getGoodreadsBookFailure(e));
       });
   };
+}
+
+export function clearBook(){
+  return {
+    type: CLEAR_BOOK
+  }
 }

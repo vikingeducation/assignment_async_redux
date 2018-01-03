@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import App from "../components/App";
 import serialize from "form-serialize";
-import { getGoodreads, getGoodreadsBook } from "../actions";
+import { getGoodreads, getGoodreadsBook, clearBook } from "../actions";
 
 const mapStateToProps = state => {
   return {
@@ -29,6 +29,9 @@ const mapDispatchToProps = dispatch => {
       let id = e.target.getAttribute("bookid");
       console.log(id);
       dispatch(getGoodreadsBook(id));
+    },
+    clearBook: e=>{
+      dispatch(clearBook());
     }
   };
 };

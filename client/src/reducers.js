@@ -51,6 +51,12 @@ export function goodreads(state = initialState, action) {
         error: action.error
       };
 
+    case Actions.CLEAR_BOOK:
+      return {
+        ...state,
+        book:null
+      };
+
     default:
       return state;
   }

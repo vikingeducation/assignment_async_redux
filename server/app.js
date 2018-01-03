@@ -92,14 +92,16 @@ app.get("/api/goodreads/book/:id", async (req, res) => {
     response = parser.toJson(response);
     //res.json(response);
     response = JSON.parse(response, null, 2);
-    console.log(response.GoodreadsResponse.book);
+    console.log(response.GoodreadsResponse);
     let book = response.GoodreadsResponse.book;
 
     let result = {
       description: book.description,
       averageRating: book.average_rating,
       ratingsCount: book.work.ratings_count.$t,
-      reviewsCount: book.work.reviews_count.$t
+      reviewsCount: book.work.reviews_count.$t,
+      imageURL: book.image_url,
+      reviewWidget: book.reviews_widget
     };
 
     res.json(result);
