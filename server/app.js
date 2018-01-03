@@ -81,6 +81,33 @@ app.use(morganToolkit());
 // ----------------------------------------
 // Routes
 // ----------------------------------------
+app.get("/api/goodreads/book/:id", async (req, res) => {
+  try {
+    let response = await fetch(
+      `https://www.goodreads.com/book/show/${req.params.id}.xml?key=${
+        process.env.GOODREADS_KEY
+      }`
+    ); //return buffers
+    response = await response.text();
+    response = parser.toJson(response);
+    //res.json(response);
+    response = JSON.parse(response, null, 2);
+    console.log(response.GoodreadsResponse.book);
+    let book = response.GoodreadsResponse.book
+
+    let result= {
+        desciption: book.description,
+        averageRating: book.average_rating,
+        ratingsCount: book.work.ratings_count.$t,
+        reviewsCount: book.work.reviews_count.$t
+    };
+
+    res.json(result);
+  } catch (e) {
+    console.error(e);
+    res.json(e);
+  }
+});
 
 app.get("/api/goodreads/", async (req, res) => {
   try {
@@ -109,6 +136,9 @@ app.get("/api/goodreads/", async (req, res) => {
     res.json(e);
   }
 });
+
+
+
 
 // ----------------------------------------
 // Template Engine

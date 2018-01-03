@@ -5,7 +5,8 @@ import * as Actions from "./actions";
 const initialState = {
   books: [],
   isFetching: false,
-  error: null
+  error: null,
+  book: null
 };
 
 export function goodreads(state = initialState, action) {
@@ -24,6 +25,26 @@ export function goodreads(state = initialState, action) {
       };
 
     case Actions.GET_GOODREADS_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error
+      };
+
+    case Actions.GET_GOODREADS_BOOK_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        error: null
+      };
+    case Actions.GET_GOODREADS_BOOK_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        book: action.data
+      };
+
+    case Actions.GET_GOODREADS_BOOK_FAILURE:
       return {
         ...state,
         isFetching: false,

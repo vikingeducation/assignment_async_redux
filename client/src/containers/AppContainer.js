@@ -22,6 +22,14 @@ const mapDispatchToProps = dispatch => {
       let query = data.search;
       dispatch(getGoodreads(query));
       form.reset();
+    },
+    onClick: e => {
+      e.preventDefault();
+      //let id = e.target.data
+      console.log(data);
+      let query = data.search;
+      dispatch(getGoodreads(query));
+      form.reset();
     }
   };
 };
