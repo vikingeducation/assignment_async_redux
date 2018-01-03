@@ -1,27 +1,33 @@
 import React from "react";
+import Modal from "./Modal";
 
-let App = ({ books, onSubmit, getGoodreads }) => {
+let App = ({ books, book, onSubmit, onClick, getGoodreads }) => {
   console.log(books);
-  let book = books.map(book => {
+  console.log(book);
+  let bookArray = books.map(el => {
     return (
-      <div key={book.id}>
-        <p>
-          {book.title} by {book.author}
-        </p>
+      <div key={el.id}>
+        <a href="/" bookid={el.id} onClick={onClick}>
+          {el.title} by {el.author}
+        </a>
       </div>
     );
   });
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="App-title">Welcome to React</h1>
+        <h1 className="App-title">Welcome to Goodreads!</h1>
       </header>
-      {book}
+
+      {bookArray}
       <button onClick={getGoodreads}>See books</button>
+
       <form name="search" onSubmit={onSubmit}>
         <input type="text" name="search" placeholder="Search term here!" />
         <input type="submit" />
       </form>
+
+      <Modal book={book} />
     </div>
   );
 };

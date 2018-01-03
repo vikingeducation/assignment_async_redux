@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
 import App from "../components/App";
 import serialize from "form-serialize";
-import { getGoodreads } from "../actions";
+import { getGoodreads, getGoodreadsBook } from "../actions";
 
 const mapStateToProps = state => {
   return {
-    books: state.goodreads.books
+    books: state.goodreads.books,
+    book: state.goodreads.book
   };
 };
 
@@ -25,11 +26,9 @@ const mapDispatchToProps = dispatch => {
     },
     onClick: e => {
       e.preventDefault();
-      //let id = e.target.data
-      console.log(data);
-      let query = data.search;
-      dispatch(getGoodreads(query));
-      form.reset();
+      let id = e.target.getAttribute("bookid");
+      console.log(id);
+      dispatch(getGoodreadsBook(id));
     }
   };
 };

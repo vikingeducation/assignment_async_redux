@@ -27,20 +27,20 @@ export function getGoodreadsFailure(error) {
 
 export function getGoodreadsBookRequest() {
   return {
-    type: GET_GOODREADS_REQUEST
+    type: GET_GOODREADS_BOOK_REQUEST
   };
 }
 
 export function getGoodreadsBookSuccess(data) {
   return {
-    type: GET_GOODREADS_SUCCESS,
+    type: GET_GOODREADS_BOOK_SUCCESS,
     data: data
   };
 }
 
 export function getGoodreadsBookFailure(error) {
   return {
-    type: GET_GOODREADS_FAILURE,
+    type: GET_GOODREADS_BOOK_FAILURE,
     error: error
   };
 }
@@ -66,7 +66,7 @@ export function getGoodreads(query) {
 
 export function getGoodreadsBook(id) {
   return dispatch => {
-    dispatch(getGoodreadsRequest());
+    dispatch(getGoodreadsBookRequest());
     fetch(`api/goodreads/book/${id}`)
       .then(response => {
         if (!response.ok) {
@@ -75,10 +75,10 @@ export function getGoodreadsBook(id) {
         return response.json();
       })
       .then(response => {
-        dispatch(getGoodreadsSuccess(response));
+        dispatch(getGoodreadsBookSuccess(response));
       })
       .catch(e => {
-        dispatch(getGoodreadsFailure(e));
+        dispatch(getGoodreadsBookFailure(e));
       });
   };
 }
