@@ -27,7 +27,6 @@ let App = ({ books, book, onSubmit, onClick, getGoodreads, clearBook }) => {
           {bookArray}
         </div>
       </div>
-      <button onClick={getGoodreads}>See books</button>
 
       <form name="search" onSubmit={onSubmit}>
         <input type="text" name="search" placeholder="Search term here!" />

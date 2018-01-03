@@ -140,6 +140,30 @@ app.get("/api/goodreads/", async (req, res) => {
   }
 });
 
+/*
+app.get("/api/goodreads/author", async (req, res) => {
+  try {
+    let query = req.query.author;
+    console.log("==============QUERY", query);
+    let response = await fetch(
+      `https://www.goodreads.com/api/author_url/${query}?key=${
+        process.env.GOODREADS_KEY
+      }`
+    ); //return buffers
+    response = await response.text();
+    response = parser.toJson(response);
+    //res.json(response);
+    response = JSON.parse(response, null, 2);
+    console.log(response.GoodreadsResponse);
+  } catch (e) {
+    console.error(e);
+    res.json(e);
+  }
+
+});
+
+*/
+
 // ----------------------------------------
 // Template Engine
 // ----------------------------------------
