@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "./Modal";
+import "./../App.css";
 
 let App = ({ books, book, onSubmit, onClick, getGoodreads, clearBook }) => {
   console.log(books);
@@ -27,7 +28,7 @@ let App = ({ books, book, onSubmit, onClick, getGoodreads, clearBook }) => {
         <input type="submit" />
       </form>
 
-      <Modal book={book} clearBook={clearBook}/>
+      <Modal book={book} clearBook={clearBook} />
     </div>
   );
 };
