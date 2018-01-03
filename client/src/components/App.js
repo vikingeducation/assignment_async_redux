@@ -1,21 +1,29 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-class App extends Component {
-  render() {
+let App = ({ books, onSubmit, getGoodreads }) => {
+  console.log(books);
+  let book = books.map(book => {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+      <div key={book.id}>
+        <p>
+          {book.title} by {book.author}
         </p>
       </div>
     );
-  }
-}
+  });
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1 className="App-title">Welcome to React</h1>
+      </header>
+      {book}
+      <button onClick={getGoodreads}>See books</button>
+      <form name="search" onSubmit={onSubmit}>
+        <input type="text" name="search" placeholder="Search term here!" />
+        <input type="submit" />
+      </form>
+    </div>
+  );
+};
 
 export default App;

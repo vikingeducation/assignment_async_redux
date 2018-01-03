@@ -82,23 +82,27 @@ app.use(morganToolkit());
 // Routes
 // ----------------------------------------
 
-app.get("/api/goodreads", async (req, res) => {
+app.get("/api/goodreads/", async (req, res) => {
   try {
-    let query = req.query;
+    let query = req.query.search;
+    console.log("==============QUERY", query);
     let response = await fetch(
       `https://www.goodreads.com/search.xml?key=${
         process.env.GOODREADS_KEY
-      }&q=Ender%27s+Game`
+      }&q=${query}`
     ); //return buffers
     response = await response.text();
     response = parser.toJson(response);
     //res.json(response);
     response = JSON.parse(response, null, 2);
-    //console.log(response.GoodreadsResponse.search.results.work);
+    console.log(response.GoodreadsResponse.search.results.work[0].best_book);
     let results = response.GoodreadsResponse.search.results.work.map(el => {
-      return { title: el.best_book.title, author: el.best_book.author.name };
+      return {
+        id: el.best_book.id.$t,
+        title: el.best_book.title,
+        author: el.best_book.author.name
+      };
     });
-    console.log(results);
     res.json(results);
   } catch (e) {
     console.error(e);
