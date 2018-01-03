@@ -93,13 +93,13 @@ app.get("/api/goodreads/book/:id", async (req, res) => {
     //res.json(response);
     response = JSON.parse(response, null, 2);
     console.log(response.GoodreadsResponse.book);
-    let book = response.GoodreadsResponse.book
+    let book = response.GoodreadsResponse.book;
 
-    let result= {
-        desciption: book.description,
-        averageRating: book.average_rating,
-        ratingsCount: book.work.ratings_count.$t,
-        reviewsCount: book.work.reviews_count.$t
+    let result = {
+      description: book.description,
+      averageRating: book.average_rating,
+      ratingsCount: book.work.ratings_count.$t,
+      reviewsCount: book.work.reviews_count.$t
     };
 
     res.json(result);
@@ -136,9 +136,6 @@ app.get("/api/goodreads/", async (req, res) => {
     res.json(e);
   }
 });
-
-
-
 
 // ----------------------------------------
 // Template Engine
