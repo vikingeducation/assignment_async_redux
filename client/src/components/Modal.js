@@ -28,17 +28,16 @@ const Modal = ({ book, clearBook }) => {
 
   return (
     <div className="backdrop" style={backdropStyle}>
-      <div className="modal" style={modalStyle}>
+      <div className="custom-modal" style={modalStyle}>
         <div className="scroll">
-          <button onClick={clearBook}>Close</button>
-
           <img src={book.imageURL} />
           <div dangerouslySetInnerHTML={{ __html: book.description }} />
           <p>Average Rating: {book.averageRating}</p>
           <p>Ratings: {book.ratingsCount}</p>
           <p>Reviews: {book.reviewsCount}</p>
+          <div dangerouslySetInnerHTML={{ __html: book.reviewWidget }} />
+          <button className="btn btn-primary" onClick={clearBook}>Close</button>
         </div>
-        <div dangerouslySetInnerHTML={{ __html: book.reviewWidget }} />
       </div>
     </div>
   );

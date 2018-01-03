@@ -129,7 +129,8 @@ app.get("/api/goodreads/", async (req, res) => {
       return {
         id: el.best_book.id.$t,
         title: el.best_book.title,
-        author: el.best_book.author.name
+        author: el.best_book.author.name,
+        imageURL: el.best_book.image_url
       };
     });
     res.json(results);

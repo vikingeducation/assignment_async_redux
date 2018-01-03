@@ -7,10 +7,13 @@ let App = ({ books, book, onSubmit, onClick, getGoodreads, clearBook }) => {
   console.log(book);
   let bookArray = books.map(el => {
     return (
-      <div key={el.id}>
-        <a href="/" bookid={el.id} onClick={onClick}>
-          {el.title} by {el.author}
-        </a>
+      <div className="col-md-6" key={el.id}>
+        <img src={el.imageURL} />
+        <div>
+          <a href="/" bookid={el.id} onClick={onClick}>
+            {el.title} by {el.author}
+          </a>
+        </div>
       </div>
     );
   });
@@ -19,8 +22,11 @@ let App = ({ books, book, onSubmit, onClick, getGoodreads, clearBook }) => {
       <header className="App-header">
         <h1 className="App-title">Welcome to Goodreads!</h1>
       </header>
-
-      {bookArray}
+      <div className="container">
+        <div className="row">
+          {bookArray}
+        </div>
+      </div>
       <button onClick={getGoodreads}>See books</button>
 
       <form name="search" onSubmit={onSubmit}>
