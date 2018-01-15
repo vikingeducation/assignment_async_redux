@@ -22,11 +22,8 @@ const mapDispatchToProps = (dispatch) => {
 
     onBookInfoRequest: (e) => {
       e.preventDefault();
-      const id = e.target.id;
-
       document.getElementById('ModalButton').click();
-
-      dispatch(getBookInfo(id));
+      dispatch(getBookInfo(e.target.id));
     }
   };
 };

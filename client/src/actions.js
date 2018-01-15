@@ -51,24 +51,25 @@ export function searchBooks(term) {
   return (dispatch) => {
     dispatch(getBookSearchRequest());
 
-    if (term) {
-      fetch(`/api/goodreads/search?q=${ term }`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`${ response.status }: ${response.message}`);
-          }
-
-          return response.json();
-        })
-        .then(json => {
-          dispatch(getBookSearchSuccess(json));
-        })
-        .catch(error => {
-          dispatch(getBookSearchFailure(error));
-        });
-    } else {
+    if (!term) {
       dispatch(getBookSearchFailure(new Error('No search query given')));
+      return;
     }
+
+    fetch(`/api/goodreads/search?q=${ term }`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`${ response.status }: ${response.message}`);
+        }
+
+        return response.json();
+      })
+      .then(books => {
+        dispatch(getBookSearchSuccess(books));
+      })
+      .catch(error => {
+        dispatch(getBookSearchFailure(error));
+      });
   };
 }
 
@@ -85,8 +86,8 @@ export function getBookInfo(id) {
 
           return response.json();
         })
-        .then(json => {
-          dispatch(getBookInfoSuccess(json));
+        .then(bookInfo => {
+          dispatch(getBookInfoSuccess(bookInfo));
         })
         .catch(error => {
           dispatch(getBookInfoFailure(error));

@@ -49,12 +49,13 @@ app.get('/api/goodreads/search', (req, res, next) => {
       const booksData = json.GoodreadsResponse.search[0].results[0].work;
       let books = [];
 
-      for (let book of booksData) {
-        book = book.best_book[0];
-        let id = book.id[0]._;
-        let title = book.title[0];
-        let author = book.author[0].name[0];
-        books.push({ id, title, author });
+      for (let rawBook of booksData) {
+        const book = rawBook.best_book[0];
+        books.push({
+          id: book.id[0]._,
+          title: book.title[0],
+          author: book.author[0].name[0]
+        });
       }
 
       res.json(books);

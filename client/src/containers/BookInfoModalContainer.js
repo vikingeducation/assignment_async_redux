@@ -3,10 +3,10 @@ import BookInfoModal from '../components/BookInfoModal';
 import { toggleModal } from '../actions';
 
 const mapStateToProps = (state) => {
-  const { modal, book, isFetching } = state.bookInfo;
+  const { showModal, book, isFetching } = state.bookInfo;
 
   return {
-    isOpen: modal,
+    isOpen: showModal,
     book,
     isFetching
   };
