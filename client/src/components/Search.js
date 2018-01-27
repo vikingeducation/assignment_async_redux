@@ -14,7 +14,7 @@ const Search = ({onSubmit}) => (
       <form className="container" onSubmit={onSubmit} >
 
         <InputGroup name='Search' labelText='Search'>
-          <Input name='inputValue' onChange={this.onSearch} value={inputValue} />
+          <Input name='inputValue' value='' />
         </InputGroup>
 
 

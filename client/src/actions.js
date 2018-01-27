@@ -1,23 +1,26 @@
-export const GET_GReads_REQUEST = 'GET_GReads_REQUEST'
-export const GET_GReads_SUCCESS = 'GET_GReads_SUCCESS'
-export const GET_GReads_FAILURE = 'GET_GReads_FAILURE'
+export const GET_GREADS_REQUEST = 'GET_GREADS_REQUEST'
+export const GET_GREADS_SUCCESS = 'GET_GREADS_SUCCESS'
+export const GET_GREADS_FAILURE = 'GET_GREADS_FAILURE'
+export const INSERT_REQUEST = 'INSERT_REQUEST'
+export const INSERT_FAILURE = 'INSERT_FAILURE'
+export const INSERT_SUCCESS = 'INSERT_SUCCESS'
 
 export function getGReadsRequest() {
   return {
-    type: GET_GReads_REQUEST
+    type: GET_GREADS_REQUEST
   }
 }
 
 export function getGReadsSuccess(data) {
   return {
-    type: GET_GReads_SUCCESS,
+    type: GET_GREADS_SUCCESS,
     data
   }
 }
 
 export function getGReadsFailure(error) {
   return {
-    type: GET_GReads_FAILURE,
+    type: GET_GREADS_FAILURE,
     error
   }
 }
@@ -34,6 +37,7 @@ export function getInitialGReads() {
       return response.json()
     })
     .then((json) => {
+
       dispatch(getGReadsSuccess(json))
     })
     .catch((error) => {

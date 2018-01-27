@@ -3,7 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import App from './components/App';
-import registerServiceWorker from './registerServiceWorker';
+import {Provider} from 'react-redux'
+import {createStore, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
+import {goodReadsApp} from './reducers'
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+let store = createStore(goodReadsApp, applyMiddleware(thunk))
+window.store = store;
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
