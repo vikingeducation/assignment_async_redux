@@ -9,7 +9,6 @@ import thunk from 'redux-thunk'
 import {goodReadsApp} from './reducers'
 
 let store = createStore(goodReadsApp, applyMiddleware(thunk))
-window.store = store;
 
 ReactDOM.render(
   <Provider store={store}>
