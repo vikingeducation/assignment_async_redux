@@ -37,7 +37,6 @@ export function getInitialGReads() {
       return response.json()
     })
     .then((json) => {
-
       dispatch(getGReadsSuccess(json))
     })
     .catch((error) => {

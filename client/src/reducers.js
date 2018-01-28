@@ -9,6 +9,7 @@ const initialState = {
 export function goodReadsApp(state = initialState, action) {
   switch (action.type) {
     case Actions.GET_GREADS_SUCCESS:
+    // debugger;
     console.log('success!!')
       return {
         ...state,

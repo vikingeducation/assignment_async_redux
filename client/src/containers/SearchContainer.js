@@ -6,9 +6,16 @@ import BookList from '../components/BookList'
 
 class SearchContainer extends Component {
   componentDidMount() {
-    debugger;
     this.props.getInitialGReads()
+    debugger;
   }
+
+  // componentWillMount() {
+  //   console.log('Will be called on the server...')
+  //   this.props.getInitialGReads()
+  //   debugger;
+  // }
+
   render() {
 
     const {searchBooks, isFetching} = this.props
