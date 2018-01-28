@@ -7,7 +7,7 @@ import BookList from '../components/BookList'
 class SearchContainer extends Component {
   componentDidMount() {
     this.props.getInitialGReads()
-    debugger;
+
   }
 
   // componentWillMount() {
@@ -19,7 +19,7 @@ class SearchContainer extends Component {
   render() {
 
     const {searchBooks, isFetching} = this.props
-
+    
     return <BookList searchBooks={searchBooks} isFetching={isFetching} />
   }
 }

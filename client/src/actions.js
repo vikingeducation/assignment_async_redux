@@ -37,7 +37,8 @@ export function getInitialGReads() {
       return response.json()
     })
     .then((json) => {
-      dispatch(getGReadsSuccess(json))
+      dispatch(getGReadsSuccess(json.GoodreadsResponse.search))
+      debugger;
     })
     .catch((error) => {
       dispatch(getGReadsFailure(error))

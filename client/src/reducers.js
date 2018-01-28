@@ -1,7 +1,7 @@
 import * as Actions from './actions'
 
 const initialState = {
-  searchBooks: {},
+  searchBooks: [],
   isFetching: false,
   error: null
 }
