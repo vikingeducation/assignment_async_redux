@@ -5,7 +5,7 @@ import Input from './elements/Input'
 import Button from './elements/Button'
 
 const Search = ({onSubmit}) => (
-  <div className='row ' >
+  <div className='row searchForm' >
     <div className="col-3">
     </div>
     <div className="col-6 transactions" style={{border: '1px #bbb solid'}}>
@@ -18,7 +18,7 @@ const Search = ({onSubmit}) => (
         </InputGroup>
 
 
-        <Button type="submit" color="primary">Process Transaction</Button>
+        <Button type="submit" color="primary">Search</Button>
       </form>
 
     </div>

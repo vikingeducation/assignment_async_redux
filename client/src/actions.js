@@ -12,9 +12,10 @@ export function getGReadsRequest() {
 }
 
 export function getGReadsSuccess(data) {
+
   return {
     type: GET_GREADS_SUCCESS,
-    data
+    data: data
   }
 }
 
@@ -25,7 +26,7 @@ export function getGReadsFailure(error) {
   }
 }
 
-export function getInitialGReads() {
+export function getInitialGReads(query = '&q=Ender%27s+Game') {
   return (dispatch) => {
     dispatch(getGReadsRequest())
 
@@ -37,11 +38,16 @@ export function getInitialGReads() {
       return response.json()
     })
     .then((json) => {
+      // console.log(json)
+      // debugger;
       dispatch(getGReadsSuccess(json.GoodreadsResponse.search))
-      debugger;
+      // console.log(json.GoodreadsResponse.search.results.work)
+      // debugger;
     })
-    .catch((error) => {
+    .catch((error, json) => {
       dispatch(getGReadsFailure(error))
+      console.log(json)
+      debugger;
     })
   }
 }

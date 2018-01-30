@@ -9,11 +9,9 @@ const initialState = {
 export function goodReadsApp(state = initialState, action) {
   switch (action.type) {
     case Actions.GET_GREADS_SUCCESS:
-    // debugger;
-    console.log('success!!')
       return {
         ...state,
-        searchBooks: action.data,
+        searchBooks: action.data.results.work,
         isFetching: false
       }
     case Actions.INSERT_SUCCESS:
