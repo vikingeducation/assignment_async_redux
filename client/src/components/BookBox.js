@@ -11,6 +11,7 @@ const BookBox = (props) => {
       {bookData.best_book.id}<br />
       {bookData.best_book.author.name}<br />
       {bookData.best_book.title}<br /><br /><br />
+      Rating <b>{bookData.average_rating}</b>
     </div>
   )
 }

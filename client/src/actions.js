@@ -26,23 +26,21 @@ export function getGReadsFailure(error) {
   }
 }
 
-export function getInitialGReads(query = '&q=Ender%27s+Game') {
+export function getInitialGReads(query) {
   return (dispatch) => {
     dispatch(getGReadsRequest())
 
-    fetch('api/greads')
+    fetch('api/search?q=' + query)
     .then((response) => {
+      console.log(query)
+      debugger;
       if (!response.ok) {
         throw new Error(`${response.satus} - ${response.statusText}`)
       }
       return response.json()
     })
     .then((json) => {
-      // console.log(json)
-      // debugger;
       dispatch(getGReadsSuccess(json.GoodreadsResponse.search))
-      // console.log(json.GoodreadsResponse.search.results.work)
-      // debugger;
     })
     .catch((error, json) => {
       dispatch(getGReadsFailure(error))
