@@ -2,12 +2,14 @@ import React from 'react'
 
 const BookBox = (props) => {
 
-  const {bookData} = props
+  const {bookData, onClick} = props
 
   return (
     <div className="thumbnail">
       <br />
-      <img src={bookData.best_book.image_url} alt={bookData.best_book.title} /><br />
+      <a href='#' onClick={onClick}>
+        <img src={bookData.best_book.image_url} alt={bookData.best_book.title} /><br />
+      </a>
       {bookData.best_book.id}<br />
       {bookData.best_book.author.name}<br />
       {bookData.best_book.title}<br /><br /><br />

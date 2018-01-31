@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import JumbotronFluid from './elements/JumbotronFluid'
 import SearchContainer from '../containers/SearchContainer'
-// import Search from './Search'
+import ModalContainer from '../containers/ModalContainer'
 
 
 class App extends Component {
@@ -17,6 +17,8 @@ class App extends Component {
 
 
         <SearchContainer />
+
+        <ModalContainer />
 
       </div>
     );
