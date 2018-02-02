@@ -11,7 +11,7 @@ class GreadsController < ApplicationController
   def show
     key = Rails.application.secrets.goodreads_api_key
     id = params[:id]
-    @greads = HTTParty.get("https://www.goodreads.com/book/show.xml?key=#{key}&id=#{id}")
+    @greads = HTTParty.get("https://www.goodreads.com/book/show.xml?key=#{key}&id=#{id}&format=json")
     render json: @greads, status: :ok
   end
 

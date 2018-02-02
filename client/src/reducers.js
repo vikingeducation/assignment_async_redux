@@ -2,8 +2,12 @@ import * as Actions from './actions'
 
 const initialState = {
   searchBooks: [],
+  isOpen: false,
   isFetching: false,
-  error: null
+  isFetching: true,
+  error: null,
+  currentReviews: {},
+  currentBook: {}
 }
 
 export function goodReadsApp(state = initialState, action) {
@@ -12,29 +16,48 @@ export function goodReadsApp(state = initialState, action) {
       return {
         ...state,
         searchBooks: action.data.results.work,
-        isFetching: false
+        isFetching: false,
+        isOpen: false
       }
     case Actions.REVIEWS_SUCCESS:
       return {
         ...state,
-        searchBooks: [...state.searchBooks, action.data],
-        isFetching: false
+        isFetchingReview: false,
+        isOpen: true,
+        currentReviews: action.data,
+        currentBook: action.data.id
       }
     case Actions.GET_GREADS_REQUEST:
+    return {
+      ...state,
+      isFetching: true,
+      error: null,
+      isOpen: false,
+      currentReviews: {}
+    }
     case Actions.REVIEWS_REQUEST:
-    console.log('request coming!!')
       return {
         ...state,
-        isFetching: true,
-        error: null
+        isFetchingReview: true,
+        error: null,
+        isOpen: false,
+        currentReviews: {}
       }
     case Actions.GET_GREADS_FAILURE:
     case Actions.REVIEWS_FAILURE:
-    console.log('failure!!')
       return {
         ...state,
         isFetching: false,
+        isFetchingReview: false,
+        isOpen: false,
+        currentReviews: {},
         error: action.error
+      }
+    case Actions.CLOSE_MODAL:
+      return {
+        ...state,
+        isOpen: false,
+        currentReviews: {}
       }
     default:
       return state

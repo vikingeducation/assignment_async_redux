@@ -1,53 +1,45 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getReviews} from '../actions'
+import {closeModal} from '../actions'
 import Modal from '../components/Modal'
 
 class ModalContainer extends Component {
 
   render() {
 
-    const {searchBooks, isFetching} = this.props
+    const {currentBook, currentReviews, isFetchingReview , onClose, isOpen, searchBooks} = this.props
 
     return (
       <div className='searchResults'>
-        <Modal width={400}
-              showOk={false}
-              onClick={this.props.onClick} />
+        <Modal  onShow={this.props.isOpen}
+                isFetching={this.props.isFetchingReview}
+                currentReviews={this.props.currentReviews}
+                onClose={this.props.onClose}
+        />
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-
   return {
     searchBooks: state.searchBooks,
-    isFetching: state.isFetching
+    isFetching: state.isFetchingReview,
+    isOpen: !state.isOpen,
+    currentReviews: state.currentReviews,
+    currentBook: state.currentBook
   }
 }
 
 // Add our new getReviews action dispatch to props
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClick: (e) => {
-      //
-      //
-      //
-      // if (e.target === e.currentTarget) props.hideModal();
-      // e.preventDefault();
-      // const form = e.target
-      // const data = serialize(form, {hash: true})
-      // dispatch(getReviews(data.id))
-      // form.reset()
+    onClose: (e) => {
+      e.preventDefault();
+      dispatch(closeModal())
     }
   }
 
-  // return {
-  //   getReviews: () => {
-  //     dispatch(getReviews())
-  //   }
-  // }
 }
 
 // Map props and dispatch to ModalContainer which will

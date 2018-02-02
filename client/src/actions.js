@@ -4,6 +4,7 @@ export const GET_GREADS_FAILURE = 'GET_GREADS_FAILURE'
 export const REVIEWS_REQUEST = 'REVIEWS_REQUEST'
 export const REVIEWS_FAILURE = 'REVIEWS_FAILURE'
 export const REVIEWS_SUCCESS = 'REVIEWS_SUCCESS'
+export const CLOSE_MODAL = 'CLOSE_MODAL'
 
 export function getGReadsRequest() {
   return {
@@ -28,24 +29,32 @@ export function getGReadsFailure(error) {
 
 export function getReviewsRequest() {
   return {
-    type: GET_GREADS_REQUEST
+    type: REVIEWS_REQUEST
   }
 }
 
 export function getReviewsSuccess(data) {
 
   return {
-    type: GET_GREADS_SUCCESS,
+    type: REVIEWS_SUCCESS,
     data: data
   }
 }
 
 export function getReviewsFailure(error) {
   return {
-    type: GET_GREADS_FAILURE,
+    type: REVIEWS_FAILURE,
     error
   }
 }
+
+
+export function closeModal() {
+  return {
+    type: CLOSE_MODAL
+  }
+}
+
 
 export function getInitialGReads(query) {
   return (dispatch) => {
@@ -53,8 +62,6 @@ export function getInitialGReads(query) {
 
     fetch('api/search?q=' + query)
     .then((response) => {
-      console.log(query)
-      debugger;
       if (!response.ok) {
         throw new Error(`${response.satus} - ${response.statusText}`)
       }
@@ -75,17 +82,15 @@ export function getReviews(id) {
   return (dispatch) => {
     dispatch(getReviewsRequest())
 
-    fetch('api/show?=' + id)
+    fetch('api/show?id=' + id)
     .then((response) => {
-      console.log(id)
-      debugger;
       if (!response.ok) {
         throw new Error(`${response.satus} - ${response.statusText}`)
       }
       return response.json()
     })
     .then((json) => {
-      dispatch(getReviewsSuccess(json.GoodreadsResponse.search))
+      dispatch(getReviewsSuccess(json.GoodreadsResponse.book))
     })
     .catch((error, json) => {
       dispatch(getReviewsFailure(error))

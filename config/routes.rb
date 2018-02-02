@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get 'api/greads', to: 'greads#show'
+  get 'api/show', to: 'greads#show'
   get 'api/search', to: 'greads#index'
 end

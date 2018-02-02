@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getInitialGReads} from '../actions'
+import {getInitialGReads, getReviews} from '../actions'
 import BookList from '../components/BookList'
 import serialize from 'form-serialize'
 import Search from '../components/Search'
@@ -19,7 +19,10 @@ class SearchContainer extends Component {
     return (
       <div className='searchResults'>
       <Search onSubmit={this.props.onSubmit} />
-      <BookList searchBooks={searchBooks} isFetching={isFetching} />
+      <BookList searchBooks={searchBooks}
+                isFetching={isFetching}
+                onShow={this.props.onShow}
+      />
       </div>
     )
   }
@@ -42,14 +45,13 @@ const mapDispatchToProps = (dispatch) => {
       const data = serialize(form, {hash: true})
       dispatch(getInitialGReads(data.searchedText))
       form.reset()
+    },
+    onShow: (e, id) => {
+      e.preventDefault();
+      dispatch(getReviews(id))
     }
   }
 
-  // return {
-  //   getInitialGReads: () => {
-  //     dispatch(getInitialGReads())
-  //   }
-  // }
 }
 
 // Map props and dispatch to SearchContainer which will

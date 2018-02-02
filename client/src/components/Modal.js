@@ -2,56 +2,67 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Button from './elements/Button'
 
-const Modal = ({show, reviews, book, isFetching, closeModal}) => {
+const Modal = ({isFetching, onClose, onShow, currentReviews}) => {
+  let style = onShow ? { display: 'block' } : {}
+  if (!onShow) {
 
-  if (!show) {
-    return null
-  }
+    const reviews = currentReviews.reviews_widget
+    let bookAuthors;
+    if (Array.isArray(currentReviews.authors.author)) {
+      bookAuthors = currentReviews.authors.author.map((auth) => {
+        return <a href={auth.link}>{auth.name}</a>
+      })
+    } else {
+      bookAuthors = <a href={currentReviews.authors.author.link}>{currentReviews.authors.author.name}</a>
+    }
 
-  const backdropStyle = {
-        position: 'fixed',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: 'rgba(0,0,0,0.3)',
-        padding: 50
-      };
+    return (
+      <div className="backdropStyle" style={style}>
+        <div className='modalStyle' >
+          <img src={currentReviews.small_image_url} className='left-position' /><br />
+          <h3>{ currentReviews.title }</h3>
+          <h4>{bookAuthors }</h4><br/>
+          <h6>Rating: { currentReviews.ratings_count }</h6><br/>
+          <i>Published: { currentReviews.publication_year }</i>
+          <p dangerouslySetInnerHTML={{ __html: currentReviews.description }}></p>
 
-    // The modal "window"
-  const modalStyle = {
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    maxWidth: 500,
-    minHeight: 300,
-    margin: '0 auto',
-    padding: 30
-  };
+          <div dangerouslySetInnerHTML={{__html: reviews }} />
 
-  return (
-    <div className="backdrop" style={backdropStyle}>
-      <div className='modal' style={modalStyle}>
-        <a href='#' onClick={closeModal}>
-          <img src={book.best_book.image_url} alt={book.best_book.title} /><br />
-        </a>
-        {book.best_book.id}<br />
+          <div className="footer">
+            <Button color='info' onClick={onClose}>
+              Close
+            </Button>
+          </div>
 
-        <div className="footer">
-          <Button onClick={closeModal}>
-            Close
-          </Button>
         </div>
       </div>
-    </div>
-  )
+    )
+
+  } else if (isFetching){
+    return (
+      <div className="backdropStyle" style={style}>
+        <div className='modalStyle' >
+
+            <p>{isFetching ? 'Loading...' : 'No Data found'}</p>
+
+            <Button color='info' onClick={onClose}>
+              Close
+            </Button>
+
+        </div>
+      </div>
+
+    )
+  } else {
+    return null
+  }
 }
 
 Modal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  reviews: PropTypes.object.isRequired,
-  book: PropTypes.object.isRequired,
+  onShow: PropTypes.bool.isRequired,
+  currentReviews: PropTypes.object.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  closeModal: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired
 }
 
 export default Modal
