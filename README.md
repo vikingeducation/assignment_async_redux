@@ -1,12 +1,12 @@
 # GoodReads Book Search App (React & Redux Async)
 
-The Book search tool using the Goodreads API. Goodreads has several endpoints for searching books and also contains a lot of review data. Here the app gives pleasant access to that.
+The Book search tool using the Goodreads API. Goodreads has several endpoints for searching books and also contains a lot of review data. Here the app gives pleasant access to searching books by title or author, as well as more details about each book like reviews (via iframe widget), rating, etc.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 
 <p align="center">
-  <img src="bank_preview.png" width="550"/>
+  <img src="/client/public/preview.png" width="550"/>
 </p>
 
 

@@ -4,10 +4,9 @@ const initialState = {
   searchBooks: [],
   isOpen: false,
   isFetching: false,
-  isFetching: true,
+  isFetchingReview: false,
   error: null,
-  currentReviews: {},
-  currentBook: {}
+  currentReviews: {}
 }
 
 export function goodReadsApp(state = initialState, action) {

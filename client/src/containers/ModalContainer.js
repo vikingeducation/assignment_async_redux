@@ -7,12 +7,10 @@ class ModalContainer extends Component {
 
   render() {
 
-    const {currentBook, currentReviews, isFetchingReview , onClose, isOpen, searchBooks} = this.props
-
     return (
       <div className='searchResults'>
         <Modal  onShow={this.props.isOpen}
-                isFetching={this.props.isFetchingReview}
+                isFetching={this.props.isFetching}
                 currentReviews={this.props.currentReviews}
                 onClose={this.props.onClose}
         />

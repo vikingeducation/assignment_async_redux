@@ -19,7 +19,7 @@ const Modal = ({isFetching, onClose, onShow, currentReviews}) => {
     return (
       <div className="backdropStyle" style={style}>
         <div className='modalStyle' >
-          <img src={currentReviews.small_image_url} className='left-position' /><br />
+          <img src={currentReviews.small_image_url} className='left-position' alt={currentReviews.id} /><br />
           <h3>{ currentReviews.title }</h3>
           <h4>{bookAuthors }</h4><br/>
           <h6>Rating: { currentReviews.ratings_count }</h6><br/>
