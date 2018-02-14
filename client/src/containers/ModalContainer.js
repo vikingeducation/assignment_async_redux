@@ -8,6 +8,7 @@ class ModalContainer extends Component {
   render() {
 
     return (
+      
       <div className='searchResults'>
         <Modal  onShow={this.props.isOpen}
                 isFetching={this.props.isFetching}
