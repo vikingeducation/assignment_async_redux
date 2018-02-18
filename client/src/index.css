@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.transactions {
+  padding: 15px;
+}
+
+.modalStyle {
+  background: #fff;
+  border-radius: 5px;
+  max-width: 600px;
+  min-height: 400px;
+  margin: 0 auto;
+  padding: 10px;
+  overflow: auto;
+}
+
+.backdropStyle {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.3);
+      padding: 50px;
+      overflow-y: scroll;
+}
+
+.left-position {
+    float: left;
+    margin-right: 15px;
+    margin-top: 20px;
+}
+
+h4 {
+  margin-left: 65px;
+}
+
+#goodreads-widget {
+  max-width: 600px;
+  margin: 5px;
+}
+
+#goodreads-widget h1{
+  visibility: hidden;
+}
+
+img.gr-hostedUserImg{
+  visibility: hidden !important;
+  width: 10px !important;
+}
